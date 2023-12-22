@@ -2,7 +2,6 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import Uploader from 'src/components/uploader/Uploader'
 function App() {  
-
   return (
     <>
       <div>
