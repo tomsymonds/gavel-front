@@ -1,6 +1,6 @@
 export const appSettings = {
     api: {
         name: "Rails",
-        domain: "http://gavel-ut62.onrender.com"
+        domain: "https://gavel-ut62.onrender.com"
     }
 }
