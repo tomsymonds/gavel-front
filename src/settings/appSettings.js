@@ -1,6 +1,6 @@
 export const appSettings = {
     api: {
         name: "Rails",
-        domain: "https://localhost:3000"
+        domain: "http://localhost:3000"
     }
 }

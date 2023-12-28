@@ -1,6 +1,7 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
 import Uploader from 'src/components/uploader/Uploader'
+import CaseList from './components/case/CaseList'
 function App() {  
   return (
     <>
@@ -11,7 +12,7 @@ function App() {
         <h1>Gavel</h1>
       </div>
       <Uploader />
-      
+      <CaseList />
     </>
   )
 }

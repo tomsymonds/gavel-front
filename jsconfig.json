@@ -6,4 +6,4 @@
         "components/*":["./src/components/*"]
       }
     }
-  }
+}
