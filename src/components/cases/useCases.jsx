@@ -8,7 +8,9 @@ const useCases = () => {
         requestType: 'all'
     })
     
-    console.log(response)
+    return {
+        response
+    }
     
 }
 

@@ -12,6 +12,7 @@ const requestsGlobalSettings = appSettings.requests
 
 //Add handling of token and authentication if needed
 const axiosAuthenticated = (token) => axios.create({
+    //AUTHORISATION REMOVED -- BREAKS CORS CURRENTLY
     headers: {
         "Content-Type": "application/json",
         // Authorization : token ? token : ""
