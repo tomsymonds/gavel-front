@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
 import { appSettings } from '../settings/appSettings'
-import useErrors from './useErrors'
-import models from '../state/stateDefinitions'
+import useErrors from '../components/errors/useErrors'
+import models from '../settings/stateDefinitions'
 import axios from 'axios'
 // import tokenController from '../helpers/tokenController'
 import objectToURLString from './objectToURLString'
@@ -14,7 +14,7 @@ const requestsGlobalSettings = appSettings.requests
 const axiosAuthenticated = (token) => axios.create({
     headers: {
         "Content-Type": "application/json",
-        Authorization : token ? token : ""
+        // Authorization : token ? token : ""
       }
     })
 

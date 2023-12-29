@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil'
-import { errorAtom } from '../state/atoms'
-import { appSettings } from '../settings/appSettings'
-import Error from '../components/error'
+import { errorAtom } from '../../settings/atoms'
+import { appSettings } from '../../settings/appSettings'
+import Error from './error'
 
 const useErrors = () => {
 
@@ -11,7 +11,6 @@ const useErrors = () => {
     const [error, setError] = useRecoilState(errorAtom)
 
     const remove = () => {
-        console.log('remove')
         setError(null)
     }
 
@@ -28,7 +27,7 @@ const useErrors = () => {
     }
 
     const alert = () => {
-        return <Error error = {error} message = {outputMessage} onClose = {remove()} />
+        return "error" //<Error error = {error} message = {outputMessage} onClose = {remove()} />
     }
 
     return {
