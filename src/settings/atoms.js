@@ -78,5 +78,9 @@ export const errorAtom = atom({
 
 export const currentView = atom({
   key: 'currentView',
-  default: "cases"
+  default: {
+    name: "cases",
+    modelType: null,
+    id: null
+  }
 })

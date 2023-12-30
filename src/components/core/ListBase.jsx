@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const ListBase = (props) => {
 
-    const { listItems, getListItemComponent, title, getIcon, noItemsText } = props
+    const { listItems, getListItemComponent, listClickHandler, title, getIcon, noItemsText } = props
 
     return (
         <>
@@ -19,7 +19,7 @@ const ListBase = (props) => {
                         { 
                             listItems.map((l) => {
                                 return (
-                                    <ListItem key = {l.id}>
+                                    <ListItem key = {l.id} onClick = {() => listClickHandler(l)}>
                                         {getListItemComponent(l)}
                                     </ListItem>
                                 )
@@ -37,6 +37,8 @@ export default ListBase
 ListBase.propTypes = {
     //Array of data items to form the list contents
     listItems: PropTypes.array,
+    //ListClickHandler - a function to handle clicks on each item
+    listClickHandler: PropTypes.func,
     //Title of the list
     title: PropTypes.string,
     //Function returning icon component
