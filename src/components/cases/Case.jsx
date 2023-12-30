@@ -1,4 +1,4 @@
-import { Container, Header } from 'semantic-ui-react'
+
 import PropTypes from 'prop-types'
 import CrimeTagList from '../events/CrimeTagList'
 

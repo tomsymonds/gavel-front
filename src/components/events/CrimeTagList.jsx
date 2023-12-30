@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { List } from 'semantic-ui-react'
 import CrimeTag from './CrimeTag'
 
 const CrimeTagList = (props) => {

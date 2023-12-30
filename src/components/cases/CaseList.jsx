@@ -1,7 +1,5 @@
 import useCases from "./useCases"
 import Case from "./Case"
-import { List, Header, Icon, Container } from 'semantic-ui-react'
-
 
 const CaseList = () => {
     const caseController = useCases()
