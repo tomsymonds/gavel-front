@@ -1,4 +1,7 @@
 import useCases from "./useCases"
+import Case from "./Case"
+import { List, Header, Icon, Container } from 'semantic-ui-react'
+
 
 const CaseList = () => {
     const caseController = useCases()
@@ -8,22 +11,33 @@ const CaseList = () => {
 
     const cases = response.data
 
+    console.log(response.data)
+
     return (
         <>
-            <div>
-                CaseList
-            </div>
+            <Container>
+            <Header as='h1'>
+                <Icon name = 'gavel' />
+                <Header.Content>
+                    Cases
+                </Header.Content>
+            </Header>
+            </Container>
             {
                 cases.length > 0 ? 
-                    <div>
+                    <List relaxed selection>
                         { 
                             cases.map((c) => {
                                 return (
-                                    <p key = {c.id}>{c.attributes.title}</p>
+                                    <List.Item key = {c.id}>
+                                        <Case 
+                                            {...c.attributes}
+                                        />
+                                    </List.Item>
                                 )
                             }) 
                         }
-                    </div>
+                    </List>
                 : "No cases"
             }
         </>

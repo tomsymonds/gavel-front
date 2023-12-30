@@ -1,5 +1,4 @@
 import reactLogo from './assets/react.svg'
-import './App.css'
 import Uploader from 'src/components/uploader/Uploader'
 import CaseList from './components/cases/CaseList'
 import {
@@ -13,6 +12,9 @@ const queryClient = new QueryClient({
     },
   },
 }) 
+import 'semantic-ui-css/semantic.min.css'
+
+
 function App() {  
   return (
     <RecoilRoot>
