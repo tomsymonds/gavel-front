@@ -1,5 +1,3 @@
-import Uploader from 'src/components/uploader/Uploader'
-import CaseList from './components/cases/CaseList'
 import {
   RecoilRoot
 } from 'recoil';
@@ -11,6 +9,7 @@ const queryClient = new QueryClient({
     },
   },
 }) 
+import MainUI from './components/core/MainUI'
 import { ChakraProvider } from '@chakra-ui/react';
 
 
@@ -19,9 +18,7 @@ function App() {
     <RecoilRoot>
       <QueryClientProvider client = {queryClient}>
         <ChakraProvider>
-            <h1>Gavel</h1>
-          <Uploader />
-          <CaseList />
+            <MainUI />
         </ChakraProvider>
       </QueryClientProvider>
     </RecoilRoot>

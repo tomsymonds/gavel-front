@@ -11,11 +11,6 @@ import { atom } from 'recoil'
 //   }
 // })
 
-// export const panelAtom = atom({
-//   key: 'panel',
-//   default: 0
-// })
-
 // export const isLoggedInSelector = selector({
 //   key: 'isLoggedIn',
 //   get: ({get}) => {
@@ -79,4 +74,9 @@ import { atom } from 'recoil'
 export const errorAtom = atom({
   key: 'error',
   default: null
+})
+
+export const currentView = atom({
+  key: 'currentView',
+  default: "cases"
 })

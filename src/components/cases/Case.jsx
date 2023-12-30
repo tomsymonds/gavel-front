@@ -23,6 +23,6 @@ const Case = (props) => {
 export default Case
 
 Case.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.string,
     attributes: PropTypes.object
 };
