@@ -6,15 +6,15 @@ import CrimeTagList from '../events/CrimeTagList'
 
 const Case = (props) => {
 
-    const { title } = props
-    const offence_tags = props.offence_tags.data
+    const { title, offence_tags  } = props.attributes
+
 
     return (
         <Container p = {2}>
             <Heading size = 'md'>
                 {title}
             </Heading>
-            <CrimeTagList tags = {offence_tags} />
+            <CrimeTagList tags = {offence_tags.data} />
         </Container>   
     )
 
@@ -23,6 +23,6 @@ const Case = (props) => {
 export default Case
 
 Case.propTypes = {
-    title: PropTypes.string,
-    offence_tags: PropTypes.object
+    id: PropTypes.number,
+    attributes: PropTypes.object
 };

@@ -1,7 +1,8 @@
 import useCases from "./useCases"
 import Case from "./Case"
-import { Container, Heading, Icon,  List, ListItem } from '@chakra-ui/react'
-import { PiGavel} from 'react-icons/pi'
+import ListBase from "../core/ListBase"
+import { Container, Icon } from '@chakra-ui/react'
+import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
     const caseController = useCases()
@@ -11,33 +12,20 @@ const CaseList = () => {
 
     const cases = response.data
 
-    console.log(response.data)
+    const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
+    const getListItemComponent = (props) => <Case {...props} />
 
     return (
         <>
             <Container p = {4}>
-            <Heading size='xl'>
-                <Icon as = {PiGavel} boxSize = '0.75em'/>
-                Cases
-            </Heading>
+            <ListBase
+                listItems = {cases}
+                title = "Cases"
+                getIcon = {getIcon}
+                getListItemComponent = {getListItemComponent}
+                noItemsText = "No cases."
+            />
             </Container>
-            {
-                cases.length > 0 ? 
-                    <List>
-                        { 
-                            cases.map((c) => {
-                                return (
-                                    <ListItem key = {c.id}>
-                                        <Case 
-                                            {...c.attributes}
-                                        />
-                                    </ListItem>
-                                )
-                            }) 
-                        }
-                    </List>
-                : "No cases"
-            }
         </>
     )
 }
