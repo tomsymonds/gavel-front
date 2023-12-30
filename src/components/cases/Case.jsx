@@ -1,4 +1,4 @@
-
+import { Container, Heading } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 import CrimeTagList from '../events/CrimeTagList'
 
@@ -10,13 +10,11 @@ const Case = (props) => {
     const offence_tags = props.offence_tags.data
 
     return (
-        <Container>
-            <Header>
+        <Container p = {2}>
+            <Heading size = 'md'>
                 {title}
-            </Header>
-            <Header.Subheader>
-                <CrimeTagList tags = {offence_tags} />
-            </Header.Subheader>
+            </Heading>
+            <CrimeTagList tags = {offence_tags} />
         </Container>   
     )
 

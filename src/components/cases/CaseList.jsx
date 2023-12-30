@@ -1,5 +1,7 @@
 import useCases from "./useCases"
 import Case from "./Case"
+import { Container, Heading, Icon,  List, ListItem } from '@chakra-ui/react'
+import { PiGavel} from 'react-icons/pi'
 
 const CaseList = () => {
     const caseController = useCases()
@@ -13,25 +15,23 @@ const CaseList = () => {
 
     return (
         <>
-            <Container>
-            <Header as='h1'>
-                <Icon name = 'gavel' />
-                <Header.Content>
-                    Cases
-                </Header.Content>
-            </Header>
+            <Container p = {4}>
+            <Heading size='xl'>
+                <Icon as = {PiGavel} boxSize = '0.75em'/>
+                Cases
+            </Heading>
             </Container>
             {
                 cases.length > 0 ? 
-                    <List relaxed selection>
+                    <List>
                         { 
                             cases.map((c) => {
                                 return (
-                                    <List.Item key = {c.id}>
+                                    <ListItem key = {c.id}>
                                         <Case 
                                             {...c.attributes}
                                         />
-                                    </List.Item>
+                                    </ListItem>
                                 )
                             }) 
                         }

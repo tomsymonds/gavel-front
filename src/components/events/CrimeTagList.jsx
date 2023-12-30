@@ -1,22 +1,23 @@
 import PropTypes from 'prop-types'
 import CrimeTag from './CrimeTag'
+import { HStack, Badge } from '@chakra-ui/react'
 
 const CrimeTagList = (props) => {
 
     const { tags } = props
 
     return (
-        <List horizontal>
+        <HStack>
             {
                 tags.map((tag) => {
                     return (
-                        <List.Item key = {tag.id}>
+                        <Badge key = {tag.id}>
                             <CrimeTag {...tag}/>
-                        </List.Item>                
+                        </Badge>                
                     )
                 })
             }
-        </List>
+        </HStack>
 
     )
 
