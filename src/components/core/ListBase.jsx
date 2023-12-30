@@ -1,18 +1,14 @@
-import { Container, Heading, List, ListItem } from '@chakra-ui/react'
+import { List, ListItem } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 
 const ListBase = (props) => {
 
-    const { listItems, getListItemComponent, listClickHandler, title, getIcon, noItemsText } = props
+    console.log(props)
+
+    const { listItems, getListItemComponent, listClickHandler, noItemsText } = props
 
     return (
         <>
-            <Container p = {4}>
-            <Heading size='xl'>
-                {getIcon()}
-                {title}
-            </Heading>
-            </Container>
             {
                 listItems.length > 0 ? 
                     <List>  

@@ -9,8 +9,16 @@ const useView = () => {
         setView(newView)
     }
 
+    const setID = (id) => {
+        setView({...current, id})
+    }
+
+    const setModelType = (type) => {
+        setView({...current, modelType:type})
+    }
+
     return {
-        set,
+        set, setID, setModelType,
         current
     }
 
