@@ -34,7 +34,6 @@ const CaseList = () => {
                 <ListBase
                     listItems = {cases}
                     listClickHandler = {handleListClick}
-                    title = "Cases"
                     getIcon = {getIcon}
                     getListItemComponent = {getListItemComponent}
                     noItemsText = "No cases."

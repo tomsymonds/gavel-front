@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 
 const ListBase = (props) => {
 
-    console.log(props)
-
     const { listItems, getListItemComponent, listClickHandler, noItemsText } = props
 
     return (

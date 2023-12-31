@@ -15,6 +15,7 @@ const Case = (props) => {
                 {title}
             </Heading>
             <CrimeTagList tags = {offence_tags.data} />
+            
         </Container>   
     )
 
