@@ -33,43 +33,51 @@ const CaseDetail = () => {
     }
 
     return (
-        <Container maxW = '1500px'>
+        <Container>
+            <Box>
             <ViewHeading 
                 text = {title}
                 textSize = "lg"
                 icon = {PiGavel}
                 iconSize = "2em"
             />
+            </Box>
+            <Box mt = "5px" mb = "30px" ml = "40px">
             <CrimeTagList tags = {offence_tags} />
-            <Box>
+            </Box>
+            <Box mb = '20px'>
                 <ViewHeading
                     textSize = 'md'
                     text = {pluralize("Defendant", defendants)}
                     icon = {IoPersonOutline}
                     iconSize = "1.5em"
                 />
-                <ListBase
-                    listItems = {defendants}
-                    listClickHandler = {() => {}}
-                    getListItemComponent = {getDefendantListItemComponent}
-                    noItemsText = "No defendants"
-                />
+                <Box ml = "25px">
+                    <ListBase
+                        listItems = {defendants}
+                        listClickHandler = {() => {}}
+                        getListItemComponent = {getDefendantListItemComponent}
+                        noItemsText = "No defendants"
+                    />
+                </Box>
             </Box>
-            <Box>
+            <Box mb = '20px'>
                 <ViewHeading
                     textSize = 'md'
                     text = {pluralize("Event", events)}
                     icon = {RiCalendarEventLine}
                     iconSize = "1.5em"
                 />
-                <ListBase
-                    isDateGroup = {true}
-                    listItems = {events}
-                    listClickHandler = {() => {}}
-                    groupClickHandler = {() => {}}
-                    getListItemComponent = {getEventListItemComponent}
-                    noItemsText = "No events"
-                />
+                <Box ml = "25px">
+                    <ListBase
+                        isDateGroup = {true}
+                        listItems = {events}
+                        listClickHandler = {() => {}}
+                        groupClickHandler = {() => {}}
+                        getListItemComponent = {getEventListItemComponent}
+                        noItemsText = "No events"
+                    />
+                </Box>
             </Box>
         </Container>
     )

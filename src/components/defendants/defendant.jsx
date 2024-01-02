@@ -2,7 +2,6 @@ import { Container, Text } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 import ViewHeading from '../core/ViewHeading'
 import dateHandler from "src/library/dateHandler"
-import { IoPersonOutline } from "react-icons/io5"
 
 const Defendant = (props) => {
 
