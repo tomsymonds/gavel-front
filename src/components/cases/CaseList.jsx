@@ -2,8 +2,9 @@ import useCases from "./useCases"
 import useView from "src/library/useView"
 import Case from "./Case"
 import ListBase from "../core/ListBase"
+import Uploader from "../uploader/Uploader"
 import ViewHeading from "../core/ViewHeading"
-import { Container, Icon } from '@chakra-ui/react'
+import { Container, Icon, Box } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
@@ -41,6 +42,9 @@ const CaseList = () => {
                     noItemsText = "No cases."
                     hasClickableItems = {true}
                 />
+                <Box mt = "20px">
+                    <Uploader />
+                </Box>
             </Container>
         </>
     )

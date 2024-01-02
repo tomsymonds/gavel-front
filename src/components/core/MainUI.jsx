@@ -14,8 +14,9 @@ const MainUI = () => {
             return <CaseDetail />
         default:
             return "No view set"
-
     }
+
+
     
 }
 
