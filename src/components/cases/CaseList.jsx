@@ -30,6 +30,8 @@ const CaseList = () => {
                 <ViewHeading 
                     icon = {PiGavel}
                     text = "Cases"
+                    iconSize = "2em"
+                    textSize = "xl"
                 />     
                 <ListBase
                     listItems = {cases}

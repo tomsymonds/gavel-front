@@ -1,21 +1,28 @@
-import { Heading, Icon } from '@chakra-ui/react'
+import { Heading, Icon, HStack } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 
 const ViewHeading = (props) => {
 
-    const { icon, text } = props
-
+    const { icon, text, iconSize, textSize } = props
     return (
-    <Heading size = 'md'>
-        <Icon as = {icon} boxSize = '0.75em'/>
-        {text}
-    </Heading>
+        <HStack>
+            { icon && <Icon as = {icon} boxSize = {iconSize}/>  }     
+            <Heading size = {textSize}>
+                {text}
+            </Heading>
+        </HStack>
     )
 }
 
 export default ViewHeading
 
 ViewHeading.propTypes = {
+    //Icon component
     icon: PropTypes.func,
-    text: PropTypes.string
+    //Heading text
+    text: PropTypes.string,
+    //Icon size in em
+    iconSize: PropTypes.string,
+    //Text size in Chakra format
+    textSize: PropTypes.string
 };

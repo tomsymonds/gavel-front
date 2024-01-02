@@ -10,12 +10,11 @@ const Case = (props) => {
 
 
     return (
-        <Container p = {2}>
+        <Container p = "2">
             <Heading size = 'md'>
                 {title}
             </Heading>
             <CrimeTagList tags = {offence_tags.data} />
-
         </Container>   
     )
 

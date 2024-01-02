@@ -19,12 +19,10 @@ const CaseDetail = () => {
 
     const response = caseController.response.data
     if(!response) return "Loading"
-    console.log(response)
     const {title} = response.data.attributes
     const defendants = response.data.attributes.defendants.data
     const offence_tags = response.data.attributes.offence_tags.data
     const events = response.data.attributes.date_sorted_events.data
-    console.log(events)
 
     const getDefendantListItemComponent = (props) => {
         return <Defendant {...props} />
@@ -35,17 +33,21 @@ const CaseDetail = () => {
     }
 
     return (
-        <Container p = {2}>
+        <Container maxW = '1500px'>
             <ViewHeading 
                 text = {title}
+                textSize = "lg"
                 icon = {PiGavel}
+                iconSize = "2em"
             />
             <CrimeTagList tags = {offence_tags} />
             <Box>
-                <Heading size = 'md' >
-                    <Icon as = {IoPersonOutline} boxSize = '0.80em' />
-                    {pluralize("Defendant", defendants)}
-                </Heading>
+                <ViewHeading
+                    textSize = 'md'
+                    text = {pluralize("Defendant", defendants)}
+                    icon = {IoPersonOutline}
+                    iconSize = "1.5em"
+                />
                 <ListBase
                     listItems = {defendants}
                     listClickHandler = {() => {}}
@@ -54,10 +56,12 @@ const CaseDetail = () => {
                 />
             </Box>
             <Box>
-                <Heading size = 'md' >
-                    <Icon as = {RiCalendarEventLine} boxSize = '0.80em' />
-                    {pluralize("Event", events)}
-                </Heading>
+                <ViewHeading
+                    textSize = 'md'
+                    text = {pluralize("Event", events)}
+                    icon = {RiCalendarEventLine}
+                    iconSize = "1.5em"
+                />
                 <ListBase
                     isDateGroup = {true}
                     listItems = {events}

@@ -1,6 +1,8 @@
-import { Container, Heading, Text } from '@chakra-ui/react'
+import { Container, Text } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
+import ViewHeading from '../core/ViewHeading'
 import dateHandler from "src/library/dateHandler"
+import { IoPersonOutline } from "react-icons/io5"
 
 const Defendant = (props) => {
 
@@ -11,9 +13,10 @@ const Defendant = (props) => {
 
     return (
         <Container p = {2}>
-            <Heading size = 'sm'>
-                { name }
-            </Heading>
+            <ViewHeading
+                text = {name} 
+                textSize = "md"
+            />
             <Text><b>date of birth</b> {dateOfBirthText}  <b>age</b> {ageText}</Text>
             <Text>{address}</Text>
         </Container>   
