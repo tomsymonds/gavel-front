@@ -5,7 +5,7 @@ import ListBase from '../core/ListBase'
 import Defendant from '../defendants/defendant'
 import CrimeTagList from "../events/CrimeTagList"
 import CourtEvent from "../events/CourtEvent"
-import { Container, Box, Heading, Icon } from '@chakra-ui/react'
+import { Container, Box } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 import { IoPersonOutline } from "react-icons/io5"
 import { RiCalendarEventLine } from "react-icons/ri";
@@ -34,15 +34,15 @@ const CaseDetail = () => {
 
     return (
         <Container>
-            <Box>
-            <ViewHeading 
-                text = {title}
-                textSize = "lg"
-                icon = {PiGavel}
-                iconSize = "2em"
-            />
+            <Box ml = "-15px">
+                <ViewHeading 
+                    text = {title}
+                    textSize = "lg"
+                    icon = {PiGavel}
+                    iconSize = "2em"
+                />
             </Box>
-            <Box mt = "5px" mb = "30px" ml = "40px">
+            <Box mt = "5px" mb = "30px" ml = "45px">
             <CrimeTagList tags = {offence_tags} />
             </Box>
             <Box mb = '20px'>
@@ -52,7 +52,7 @@ const CaseDetail = () => {
                     icon = {IoPersonOutline}
                     iconSize = "1.5em"
                 />
-                <Box ml = "25px">
+                <Box ml = "23px">
                     <ListBase
                         listItems = {defendants}
                         listClickHandler = {() => {}}
@@ -68,7 +68,7 @@ const CaseDetail = () => {
                     icon = {RiCalendarEventLine}
                     iconSize = "1.5em"
                 />
-                <Box ml = "25px">
+                <Box ml = "33px">
                     <ListBase
                         isDateGroup = {true}
                         listItems = {events}
