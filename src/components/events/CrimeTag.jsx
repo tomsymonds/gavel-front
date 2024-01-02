@@ -3,7 +3,7 @@ import { Badge } from '@chakra-ui/react'
 
 const CrimeTag = (props) => {
 
-    const { name } = props.attributes
+    const { name } = props
 
     return (
         <Badge>{name}</Badge>
@@ -14,6 +14,6 @@ const CrimeTag = (props) => {
 export default CrimeTag
 
 CrimeTag.propTypes = {
-    attributes: PropTypes.object
+    name: PropTypes.string
 }
 

@@ -6,9 +6,7 @@ import CaseDetail from '../cases/CaseDetail'
 const MainUI = () => {
 
     const view = useRecoilValue(currentView)
-
-    console.log(view)
-
+    
     switch(view.name) {
         case "cases":
             return <CaseList />

@@ -3,15 +3,15 @@ import CrimeTag from './CrimeTag'
 import { HStack } from '@chakra-ui/react'
 
 const CrimeTagList = (props) => {
-
     const { tags } = props
 
     return (
         <HStack>
             {
-                tags.map((tag) => {
+                tags.map((tag, index) => {
+                    if(typeof tag === "string") tag = {id:index, attributes: {name: tag}}
                     return (
-                        <CrimeTag {...tag} key = {tag.id}/>            
+                        <CrimeTag id = {tag.id} {...tag.attributes} key = {tag.id}/>            
                     )
                 })
             }

@@ -15,7 +15,7 @@ const CaseList = () => {
     const cases = response.data
 
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
-    const getListItemComponent = (props) => <Case {...props} />
+    const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
     const handleListClick = (selectedCase) => {
         view.set({
             name: "case",

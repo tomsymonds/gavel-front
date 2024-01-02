@@ -8,7 +8,6 @@ import isThisYear from 'date-fns/isThisYear'
 const dateFormats = (dateString, mode) => {
     const dateObj = new Date(dateString)
     const now = Date.now()
-    console.log(dateObj)
 
     const friendlyDays = (dateObj) => {
         if(isToday(dateObj)) return "Today";
