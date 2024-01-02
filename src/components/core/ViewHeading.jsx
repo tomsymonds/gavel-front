@@ -6,7 +6,7 @@ const ViewHeading = (props) => {
     const { icon, text, iconSize, textSize } = props
     return (
         <HStack>
-            { icon && <Icon as = {icon} boxSize = {iconSize}/>  }     
+            { icon && <Icon as = {icon} boxSize = {iconSize} color = "#63B3ED"/>  }     
             <Heading size = {textSize}>
                 {text}
             </Heading>

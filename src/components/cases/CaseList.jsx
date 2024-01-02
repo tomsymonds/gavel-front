@@ -39,6 +39,7 @@ const CaseList = () => {
                     getIcon = {getIcon}
                     getListItemComponent = {getListItemComponent}
                     noItemsText = "No cases."
+                    hasClickableItems = {true}
                 />
             </Container>
         </>

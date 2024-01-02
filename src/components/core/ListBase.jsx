@@ -6,7 +6,7 @@ import dateHandler  from '../../library/dateHandler'
 //Generic list component allowing simple or grouped lists
 const ListBase = (props) => {
     //Prop comments see PropTypes
-    const { isDateGroup, listItems, getListItemComponent, listClickHandler, groupClickHandler, noItemsText } = props
+    const { isDateGroup, listItems, getListItemComponent, listClickHandler, groupClickHandler, noItemsText, hasClickableItems } = props
 
     //Return noItemsText for empty list
     if(!listItems || listItems.length === 0) return <Text>{noItemsText}</Text>
@@ -40,7 +40,12 @@ const ListBase = (props) => {
     //Returns a list item
     const getListItem = (l) => {
         return (
-            <ListItem key = {l.id} onClick = {() => listClickHandler(l)}>
+            <ListItem 
+                key = {l.id} 
+                onClick = {() => listClickHandler(l)} 
+                _hover={hasClickableItems && { backgroundColor: '#EBF8FF', cursor: 'pointer' }
+                }
+            >
                 {getListItemComponent(l)}
             </ListItem>
         )
@@ -113,5 +118,7 @@ ListBase.propTypes = {
     //String containing text to show in empty list
     noItemsText: PropTypes.string,
     //Function returning each list item component
-    getListItemComponent: PropTypes.func
+    getListItemComponent: PropTypes.func,
+    //If true, the items in the list can be clicked
+    hasClickableItems: PropTypes.bool
 };

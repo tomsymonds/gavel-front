@@ -58,6 +58,7 @@ const CaseDetail = () => {
                         listClickHandler = {() => {}}
                         getListItemComponent = {getDefendantListItemComponent}
                         noItemsText = "No defendants"
+                        hasClickableItems = {false}
                     />
                 </Box>
             </Box>
@@ -76,6 +77,7 @@ const CaseDetail = () => {
                         groupClickHandler = {() => {}}
                         getListItemComponent = {getEventListItemComponent}
                         noItemsText = "No events"
+                        hasClickableItems = {false}
                     />
                 </Box>
             </Box>
