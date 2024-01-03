@@ -6,9 +6,7 @@ const ItemNavBar = () => {
     const views = useView()
     const currentIndex = views.currentIndex
     const breadcrumbClickHandler = (newIndex) => {
-        console.log(newIndex)
         views.moveToIndex(newIndex)
-        
     }
     return (
         <Box mb = '25px'>

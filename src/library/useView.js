@@ -1,10 +1,23 @@
 import { useRecoilState } from "recoil"
 import { viewHistory } from "src/settings/atoms"
 
+//Provides a history-based navigation system which keeps in Recoil state a current path of views accessed.
+//Users can backwards, forwards along the path or jump to a specific index
+//Returning to an earlier index and then starting on a new path replaces the old one.
+//Needs a viewHistory atom
+//Needs each view to expose:
+//name: string name of the view type = eg "cases"
+//modelType: string name of the type of model the view contains
+//id: null: integer id of the model selected
+//itemTitle: string representing the title of the view, to be shown in breadcrumbs
 const useView = () => {
 
     const [view, setView] = useRecoilState(viewHistory)
 
+    //Add or replace a view in the history based on props.
+    //Index - the index at which to add or replace
+    //NewView - the new view to add to the history
+    //isReplace - if true, the existing view is replaced, if false the newView is inserted
     const addReplaceView = (index, newView, isReplace) => {
         //Add new view to history
         const newHistory = [...view.history]
