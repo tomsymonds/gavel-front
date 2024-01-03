@@ -10,7 +10,7 @@ import { PiGavel } from 'react-icons/pi'
 const CaseList = () => {
     const caseController = useCases()
     const response = caseController.response.data
-    const view = useView()
+    const viewHistory = useView()
     if(!response) return "Loading"
 
     const cases = response.data
@@ -18,7 +18,7 @@ const CaseList = () => {
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
     const handleListClick = (selectedCase) => {
-        view.set({
+        viewHistory.addView({
             name: "case",
             modelType: "case",
             id: selectedCase.id
@@ -32,16 +32,18 @@ const CaseList = () => {
                     icon = {PiGavel}
                     text = "Cases"
                     iconSize = "2em"
-                    textSize = "xl"
+                    textSize = "3xl"
                 />     
-                <ListBase
-                    listItems = {cases}
-                    listClickHandler = {handleListClick}
-                    getIcon = {getIcon}
-                    getListItemComponent = {getListItemComponent}
-                    noItemsText = "No cases."
-                    hasClickableItems = {true}
-                />
+                <Box mt = '20px'>
+                    <ListBase
+                        listItems = {cases}
+                        listClickHandler = {handleListClick}
+                        getIcon = {getIcon}
+                        getListItemComponent = {getListItemComponent}
+                        noItemsText = "No cases."
+                        hasClickableItems = {true}
+                    />
+                </Box>
                 <Box mt = "20px">
                     <Uploader />
                 </Box>

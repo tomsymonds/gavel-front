@@ -1,5 +1,3 @@
-import { useRecoilValue } from "recoil"
-import { currentView } from "src/settings/atoms"
 import ViewHeading from '../core/ViewHeading'
 import ListBase from '../core/ListBase'
 import Defendant from '../defendants/defendant'
@@ -10,11 +8,12 @@ import { PiGavel } from 'react-icons/pi'
 import { IoPersonOutline } from "react-icons/io5"
 import { RiCalendarEventLine } from "react-icons/ri";
 import useCase from "./useCase"
+import useView from "../../library/useView"
 import pluralize from "src/library/pluralise"
 
 const CaseDetail = () => {
-    const view = useRecoilValue(currentView)
-    const caseID = view.id
+    const view = useView()
+    const caseID = view.current().id
     const caseController = useCase(caseID)
 
     const response = caseController.response.data
@@ -37,7 +36,7 @@ const CaseDetail = () => {
             <Box ml = "-15px">
                 <ViewHeading 
                     text = {title}
-                    textSize = "lg"
+                    textSize = "3xl"
                     icon = {PiGavel}
                     iconSize = "2em"
                 />

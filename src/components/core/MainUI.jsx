@@ -1,15 +1,17 @@
-import { useRecoilValue } from 'recoil'
-import { currentView } from '../../settings/atoms'
 import CaseList from '../cases/CaseList'
 import CaseDetail from '../cases/CaseDetail'
-import FixedBanner from './FixedBanner'
+import NavBanner from './NavBanner'
+import { Box, Container, Button } from '@chakra-ui/react'
+import useNav from '../../library/useNav'
+import useView from '../../library/useView'
 
 const MainUI = () => {
 
-    const view = useRecoilValue(currentView)
+    const view = useView()
+    const nav = useNav()
 
     const mainContent = () => {
-        switch(view.name) {
+        switch(view.current().name) {
             case "cases":
                 return <CaseList />
             case "case":
@@ -19,11 +21,20 @@ const MainUI = () => {
         }
     }
 
+    console.log(view.backwardsIsPossible())
+
     return (
-        <>
-            <FixedBanner />
-            {mainContent()}
-        </>
+        <Container>
+            <NavBanner />
+            <Box mt = "50px">
+                {view.backwardsIsPossible() &&
+                    <Button>
+                        back
+                    </Button>
+                }
+                {mainContent()} 
+            </Box>
+        </Container>
 
     )
 

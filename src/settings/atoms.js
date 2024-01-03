@@ -76,11 +76,14 @@ export const errorAtom = atom({
   default: null
 })
 
-export const currentView = atom({
-  key: 'currentView',
+export const viewHistory = atom({
+  key: 'viewHistory',
   default: {
-    name: "cases",
-    modelType: null,
-    id: null
+    currentIndex: 0,
+    history: [{
+      name: "cases",
+      modelType: null,
+      id: null
+    }]
   }
 })
