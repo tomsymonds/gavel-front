@@ -5,37 +5,63 @@ const useView = () => {
 
     const [view, setView] = useRecoilState(viewHistory)
 
-    const addView = (newView) => {
-        console.log('add', newView)
+    const addReplaceView = (index, newView, isReplace) => {
         //Add new view to history
         const newHistory = [...view.history]
-        newHistory.splice(view.currentIndex, 0, newView)
+        newHistory.splice(index, isReplace ? 1 : 0, newView)
+        let newIndex = view.currentIndex
+        newIndex = newIndex += 1
         setView({
-            ...view,
+            currentIndex: newIndex, 
             history: newHistory
         })
-        moveForward()
     }
 
-    const moveForward = () => {
-        let current = view.currentIndex
-        current = current ++
-        if(view.currentIndex < view.history.length){
-            setPosition(current)
+    const moveForward = (newView) => {
+        let newIndex = view.currentIndex
+        newIndex = newIndex += 1
+        const nextItem = next()
+        if(!nextItem){
+            addReplaceView(view.currentIndex + 1, newView, false)
+            return
+        } 
+        if(itemsDoMatch(current(), next())){
+            setPosition(newIndex)
+        } else {
+            addReplaceView(view.currentIndex + 1, newView, true)
         }
+    }
+
+    const moveToIndex = (newIndex) => {
+        setView({
+            ...view,
+            currentIndex: newIndex
+        })
+    }
+
+    const indexAtEnd = () => {
+        return view.currentIndex === view.history.length - 1
+    }
+
+    const next = () => {
+        return indexAtEnd() ? null : view.history[view.currentIndex + 1]
     }
 
     const moveBackwards = () => {
-        let current = view.currentIndex
-        current = current --
+        let newIndex = view.currentIndex
+        newIndex -= 1
         if(view.currentIndex > 0){
-            setPosition(current)
+            setPosition(newIndex)
         }
 
     }
 
+    const itemsDoMatch = (item1, item2) => {
+        return item1 !== null && item2 !== null && item1.type === item2.type && item1.id === item2.id
+    }
+
     const setPosition = (newIndex) => {
-        setView({...history, currentIndex: newIndex})
+        setView({...view, currentIndex: newIndex})
     }
 
     const current = () => {
@@ -46,12 +72,18 @@ const useView = () => {
         return view.currentIndex > 0
     }
 
+    const history = () => {
+        return view.history
+    }
+
     return {
-        current,
+        current, next,
         moveForward,
         moveBackwards,
-        addView,
-        backwardsIsPossible
+        moveToIndex,
+        addReplaceView,
+        backwardsIsPossible,
+        history
     }
 
 }

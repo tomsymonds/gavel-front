@@ -83,7 +83,8 @@ export const viewHistory = atom({
     history: [{
       name: "cases",
       modelType: null,
-      id: null
+      id: null,
+      itemTitle: "Cases"
     }]
   }
 })

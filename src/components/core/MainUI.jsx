@@ -1,14 +1,14 @@
 import CaseList from '../cases/CaseList'
 import CaseDetail from '../cases/CaseDetail'
 import NavBanner from './NavBanner'
-import { Box, Container, Button } from '@chakra-ui/react'
-import useNav from '../../library/useNav'
+import { Box, Container } from '@chakra-ui/react'
+import ItemNavBar from './ItemNavBar'
 import useView from '../../library/useView'
 
 const MainUI = () => {
 
     const view = useView()
-    const nav = useNav()
+
 
     const mainContent = () => {
         switch(view.current().name) {
@@ -21,17 +21,11 @@ const MainUI = () => {
         }
     }
 
-    console.log(view.backwardsIsPossible())
-
     return (
         <Container>
             <NavBanner />
             <Box mt = "50px">
-                {view.backwardsIsPossible() &&
-                    <Button>
-                        back
-                    </Button>
-                }
+                <ItemNavBar />
                 {mainContent()} 
             </Box>
         </Container>

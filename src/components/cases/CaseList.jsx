@@ -18,10 +18,12 @@ const CaseList = () => {
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
     const handleListClick = (selectedCase) => {
-        viewHistory.addView({
-            name: "case",
+        console.log(selectedCase)
+        viewHistory.moveForward({
+            name: "case", 
             modelType: "case",
-            id: selectedCase.id
+            id: selectedCase.id,
+            itemTitle: selectedCase.attributes.title
         })
     }
 
