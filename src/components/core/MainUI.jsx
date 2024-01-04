@@ -1,6 +1,7 @@
 import CaseList from '../cases/CaseList'
 import CaseDetail from '../cases/CaseDetail'
 import NavBanner from './NavBanner'
+import LoginButton from '../auth/LoginButton'
 import { Box, Container } from '@chakra-ui/react'
 import ItemNavBar from './ItemNavBar'
 import useView from '../../library/useView'
@@ -25,6 +26,7 @@ const MainUI = () => {
         <Container>
             <NavBanner />
             <Box mt = "50px">
+                <LoginButton />
                 <ItemNavBar />
                 {mainContent()} 
             </Box>

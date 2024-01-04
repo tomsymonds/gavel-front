@@ -1,7 +1,7 @@
 export const appSettings = {
     api: {
         name: "Rails",
-        domain: "https://gavel-ut62.onrender.com"
+        domain: "http://localhost:3000"
     },
     requests: {
         //Error codes which will not trigger a React Query request retry

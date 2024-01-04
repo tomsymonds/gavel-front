@@ -14,6 +14,7 @@ const CaseList = () => {
     if(!response) return "Loading"
 
     const cases = response.data
+    console.log(response)
 
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />

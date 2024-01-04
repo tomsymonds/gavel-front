@@ -8,7 +8,6 @@ const Case = (props) => {
 
     const { title, offence_tags  } = props
 
-
     return (
         <Container p = "2">
             <Heading size = 'md'>

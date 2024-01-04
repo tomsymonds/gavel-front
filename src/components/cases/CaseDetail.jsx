@@ -18,6 +18,7 @@ const CaseDetail = () => {
 
     const response = caseController.response.data
     if(!response) return "Loading"
+    console.log(response)
     const {title} = response.data.attributes
     const defendants = response.data.attributes.defendants.data
     const offence_tags = response.data.attributes.offence_tags.data

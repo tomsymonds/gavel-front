@@ -24,5 +24,5 @@ const CrimeTagList = (props) => {
 export default CrimeTagList
 
 CrimeTagList.propTypes = {
-    tags: PropTypes.array,
+    tags: PropTypes.array 
 }
