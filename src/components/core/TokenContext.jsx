@@ -13,13 +13,12 @@ export const TokenContext = ({children}) => {
         const fetchToken = async () => {
             await getAccessTokenSilently().then((response) => {
                 console.log('TOKEN RESPONSE', response)
-                setToken(response)
+                const newToken = response
+                setToken(newToken)
             })
           }
           fetchToken()
         }, [getAccessTokenSilently])
-
-    console.log('render  tokenProvider with', token)
 
     return (
         <CurrentTokenContext.Provider value = {token}>

@@ -1,15 +1,14 @@
-import { useGet } from '../../library/useController'
-import useToken from '../../library/useToken'
+import useController from '../../library/useController'
 
 const useCases = () => {
     
-    const tokenProvider = useToken()
+    const controller = useController()
 
-    const response = useGet({
+    const response = controller.get({
         type: 'cases',
-        requestType: 'all',
-        tokenProvider
+        requestType: 'all'
     })
+
     
     // console.log("useGet returned", response)
     return response

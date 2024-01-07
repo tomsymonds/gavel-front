@@ -93,3 +93,11 @@ export const apiToken = atom({
   key: 'apiToken',
   default: null    
 })
+
+export const globalHttpClient = atom({
+  key: 'globalHttpClient',
+  default: {
+    client: null,
+    hasToken: false
+  }
+})

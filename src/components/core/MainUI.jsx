@@ -8,13 +8,16 @@ import { Box, Container } from '@chakra-ui/react'
 import ItemNavBar from './ItemNavBar'
 import useView from '../../library/useView'
 import { useAuth0 } from "@auth0/auth0-react";
+import useToken from '../../library/useToken'
 
 const MainUI = () => {
 
     const view = useView()
     const { isAuthenticated, user } = useAuth0()
+    const tokenProvider = useToken()
 
     const mainContent = () => {
+        console.log('main content', tokenProvider.token)
         switch(view.current().name) {
             case "cases":
                 return <CaseList />
@@ -36,7 +39,10 @@ const MainUI = () => {
                         </>
                     )
                 }
-                {isAuthenticated && (
+                {!isAuthenticated && !tokenProvider.token && (
+                    <>No token</>
+                )}
+                {isAuthenticated && tokenProvider.token && (
                         <>
                             <LogoutButton/>
                             {user && <p>{user.email}</p>}

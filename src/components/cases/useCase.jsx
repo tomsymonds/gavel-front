@@ -1,9 +1,11 @@
-import { useGet } from '../../library/useController'
+import useController from '../../library/useController'
 // import { useRecoilValue } from 'recoil'
 
 const useCase = (id) => {
+
+    const controller = useController()
     
-    const response = useGet({
+    const response = controller.get({
         type: 'cases',
         requestType: 'byID',
         params: { id }
