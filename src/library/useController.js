@@ -75,7 +75,9 @@ const getQueryString = (queryStringParams) => {
     return "?" + objectToURLString(queryStringParams)
 }
 
-const axiosObject = (token) => {
+const getAxiosObject = (tokenProvider) => {
+    const token = tokenProvider.current()
+    console.log('creating axios object with token', token)
     return axios.create(
         {
             headers: {
@@ -97,32 +99,32 @@ const axiosObject = (token) => {
  * @returns 
  */
 const getQueryParams = (props) => {
-    const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}, errorController, token } = props
+    const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}, errorController, tokenProvider } = props
     const {routeProvider, queryProvider, idRequired} = getRequest({type, requestType})
     const combinedParams = {...params, ...queryStringParams}
     const queryKey = queryProvider(combinedParams)
-    //Use authenticated axios request unless options prevent or there is no authenticated axios object
-    //const axiosObject = axiosAuthenticated(token)
-    const queryFn = async (props) => {
-        const { pageParam, token } = props //Current page for infinite queries. Can be null.
+    const axiosObject = getAxiosObject(tokenProvider)
+    const queryFn = (props) => {
+        const { pageParam } = props //Current page for infinite queries. Can be null.
         const routeURL = getRouteURL(routeProvider, params, queryStringParams, pageParam)
-        console.log("Query function will contain token", token)
-            return await axiosObject.get(routeURL)
-            .then((response) => {
-                console.log('response from API', response)
-                callbacks.onSuccess && callbacks.onSuccess(response)
-                return response.data
+        return axiosObject.get(
+            routeURL
+        )
+        .then((response) => {
+            console.log('response from API', response)
+            callbacks.onSuccess && callbacks.onSuccess(response)
+            return response.data
+        })
+        .catch(error => {
+            // Handle errors
+            console.log('error from API', error)
+            errorController.set({
+                message: error.response.statusText,
+                status: error.response.status
             })
-            .catch(error => {
-                // Handle errors
-                console.log('error from API', error)
-                errorController.set({
-                    message: error.response.statusText,
-                    status: error.response.status
-                })
-                return null
-            });
-        };
+            return null
+        });
+    };
     return {
         queryKey, queryFn,
         ...options,

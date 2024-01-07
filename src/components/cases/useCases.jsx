@@ -8,7 +8,7 @@ const useCases = () => {
     const response = useGet({
         type: 'cases',
         requestType: 'all',
-        token: tokenProvider.current()
+        tokenProvider
     })
     
     // console.log("useGet returned", response)

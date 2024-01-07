@@ -10,9 +10,8 @@ import useCases from "./useCases"
 // import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
-    const token = useContext(CurrentTokenContext)
     
-    const caseController = useCases(token)
+    const caseController = useCases()
 
     console.log(caseController)
     // const response = caseController.response
