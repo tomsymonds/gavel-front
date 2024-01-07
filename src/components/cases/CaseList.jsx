@@ -1,35 +1,42 @@
+import { useContext } from "react"
+import { CurrentTokenContext } from "../core/TokenContext"
 import useCases from "./useCases"
-import useView from "src/library/useView"
-import Case from "./Case"
-import ListBase from "../core/ListBase"
-import Uploader from "../uploader/Uploader"
-import ViewHeading from "../core/ViewHeading"
-import { Container, Icon, Box } from '@chakra-ui/react'
-import { PiGavel } from 'react-icons/pi'
+// import useView from "src/library/useView"
+// import Case from "./Case"
+// import ListBase from "../core/ListBase"
+// import Uploader from "../uploader/Uploader"
+// import ViewHeading from "../core/ViewHeading"
+// import { Container, Icon, Box } from '@chakra-ui/react'
+// import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
-    const caseController = useCases()
-    const response = caseController.response.data
-    const viewHistory = useView()
-    if(!response) return "Loading"
+    const token = useContext(CurrentTokenContext)
+    
+    const caseController = useCases(token)
 
-    const cases = response.data
-    console.log(response)
+    console.log(caseController)
+    // const response = caseController.response
+    // console.log("response to caseList", response)
+    // // const viewHistory = useView()
+    // console.log('render CaseList')
+    // if(!response) return "Loading"
 
-    const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
-    const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
-    const handleListClick = (selectedCase) => {
-        viewHistory.moveForward({
-            name: "case", 
-            modelType: "case",
-            id: selectedCase.id,
-            itemTitle: selectedCase.attributes.title
-        })
-    }
+    //const cases = response.data
+
+    // const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
+    // const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
+    // const handleListClick = (selectedCase) => {
+    //     viewHistory.moveForward({
+    //         name: "case", 
+    //         modelType: "case",
+    //         id: selectedCase.id,
+    //         itemTitle: selectedCase.attributes.title
+    //     })
+    // }
 
     return (
-        <>
-            <Container p = {4}>
+            <>component</>
+            /* <Container p = {4}>
                 <ViewHeading 
                     icon = {PiGavel}
                     text = "Cases"
@@ -49,8 +56,7 @@ const CaseList = () => {
                 <Box mt = "20px">
                     <Uploader />
                 </Box>
-            </Container>
-        </>
+            </Container> */
     )
 }
 

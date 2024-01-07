@@ -1,15 +1,24 @@
 import { useGet } from '../../library/useController'
-// import { useRecoilValue } from 'recoil'
+import useToken from '../../library/useToken'
 
 const useCases = () => {
     
+    const tokenProvider = useToken()
+
     const response = useGet({
         type: 'cases',
-        requestType: 'all'
+        requestType: 'all',
+        token: tokenProvider.current()
     })
     
+    // console.log("useGet returned", response)
     return {
-        response
+        list: response,
+        status: {
+            hasAPIToken: tokenProvider.hasToken(),
+            noResponse: response === null
+        }
+
     }
     
 }

@@ -3,22 +3,25 @@ import { appSettings } from '../settings/appSettings'
 import useErrors from '../components/errors/useErrors'
 import models from '../settings/stateDefinitions'
 import axios from 'axios'
-// import tokenController from '../helpers/tokenController'
+//import tokenController from '../helpers/tokenController'
 import objectToURLString from './objectToURLString'
+
+const test = true
 
 const api = appSettings.api
 const requestsGlobalSettings = appSettings.requests
-// const tokenProvider = tokenController()
+
 
 //Add handling of token and authentication if needed
-const axiosAuthenticated = (token) => axios.create({
-    //AUTHORISATION REMOVED -- BREAKS CORS CURRENTLY
-    headers: {
-        "Content-Type": "application/json",
-        // Authorization : token ? token : ""
-      }
+const axiosAuthenticated = (token) => {
+    console.log('request for axios object with token', token)
+    return axios.create({
+        headers: {
+            "Authorization" : `Bearer ${token}` 
+        }
     })
-
+}
+ 
 /**
  * Validates requests relating to models
  * @param {string} the type of item to control. 
@@ -96,30 +99,40 @@ const getQueryString = (queryStringParams) => {
  * @returns 
  */
 const getQueryParams = (props) => {
-    const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}, errorController } = props
+    console.log('getQueryParams props', props)
+    const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}, errorController, token } = props
     const {routeProvider, queryProvider, idRequired} = getRequest({type, requestType})
     const combinedParams = {...params, ...queryStringParams}
     const queryKey = queryProvider(combinedParams)
     //Use authenticated axios request unless options prevent or there is no authenticated axios object
-    const token = "1234" // tokenProvider.get()
-    const axiosObject = !options.unauthenticated ? axiosAuthenticated(token) : axios
+    //const axiosObject = axiosAuthenticated(token)
     const queryFn = async (props) => {
+        console.log("queryFN props", props)
         const { pageParam } = props //Current page for infinite queries. Can be null.
         const routeURL = getRouteURL(routeProvider, params, queryStringParams, pageParam)
-        return await axiosObject.get(routeURL)
-        .then((response) => {
-            callbacks.onSuccess && callbacks.onSuccess(response)
-            return response.data
-        })
-        .catch(error => {
-            // Handle errors
-            errorController.set({
-                message: error.response.statusText,
-                status: error.response.status
+        console.log("TOKEN SENT IS", token)
+            return await axios.get(
+                routeURL, {
+                    headers: {
+                        "Authorization" : `Bearer ${token}` 
+                    }
+                }
+                )
+            .then((response) => {
+                console.log('response from API', response)
+                callbacks.onSuccess && callbacks.onSuccess(response)
+                return response.data
             })
-            return null
-        });
-    };
+            .catch(error => {
+                // Handle errors
+                console.log('error from API', error)
+                errorController.set({
+                    message: error.response.statusText,
+                    status: error.response.status
+                })
+                return null
+            });
+        };
     return {
         queryKey, queryFn,
         ...options,
@@ -140,9 +153,11 @@ const getQueryParams = (props) => {
     
 //Get a standard React-Query request
 export const useGet = (props) => {
+    console.log('useGet with', props)
     const errorController = useErrors()
     const queryParams = getQueryParams({...props, errorController})
-    return useQuery(queryParams)
+    console.log('queryParams returned to useGet', queryParams)
+    return useQuery({...queryParams})
 }
 
 //Get an infinite React-Query request

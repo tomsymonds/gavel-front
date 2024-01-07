@@ -88,3 +88,8 @@ export const viewHistory = atom({
     }]
   }
 })
+
+export const apiToken = atom({
+  key: 'apiToken',
+  default: null    
+})
