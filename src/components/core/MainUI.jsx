@@ -14,7 +14,6 @@ const MainUI = () => {
     const view = useView()
     const { isAuthenticated, user } = useAuth0()
 
-
     const mainContent = () => {
         switch(view.current().name) {
             case "cases":

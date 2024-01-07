@@ -13,7 +13,9 @@ const useToken = () => {
 
     useEffect(() => {
         const fetchToken = async () => {
+            console.log('get token')
             await getAccessTokenSilently().then((response) => {
+                console.log(response)
                 setToken(response)
             })
         }

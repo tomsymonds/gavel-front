@@ -12,14 +12,7 @@ const useCases = () => {
     })
     
     // console.log("useGet returned", response)
-    return {
-        list: response,
-        status: {
-            hasAPIToken: tokenProvider.hasToken(),
-            noResponse: response === null
-        }
-
-    }
+    return response
     
 }
 

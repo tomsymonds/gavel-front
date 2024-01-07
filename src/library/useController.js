@@ -6,21 +6,10 @@ import axios from 'axios'
 //import tokenController from '../helpers/tokenController'
 import objectToURLString from './objectToURLString'
 
-const test = true
 
 const api = appSettings.api
 const requestsGlobalSettings = appSettings.requests
 
-
-//Add handling of token and authentication if needed
-const axiosAuthenticated = (token) => {
-    console.log('request for axios object with token', token)
-    return axios.create({
-        headers: {
-            "Authorization" : `Bearer ${token}` 
-        }
-    })
-}
  
 /**
  * Validates requests relating to models
@@ -84,7 +73,16 @@ const getRouteURL = (routeProvider, params = {}, queryStringParams = {}, pagePar
 const getQueryString = (queryStringParams) => {
     if(Object.keys(queryStringParams).length === 0) return ""
     return "?" + objectToURLString(queryStringParams)
-    
+}
+
+const axiosObject = (token) => {
+    return axios.create(
+        {
+            headers: {
+                "Authorization" : `Bearer ${token}` 
+            }
+        }
+    )
 }
 
 /**
@@ -99,7 +97,6 @@ const getQueryString = (queryStringParams) => {
  * @returns 
  */
 const getQueryParams = (props) => {
-    console.log('getQueryParams props', props)
     const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}, errorController, token } = props
     const {routeProvider, queryProvider, idRequired} = getRequest({type, requestType})
     const combinedParams = {...params, ...queryStringParams}
@@ -107,17 +104,10 @@ const getQueryParams = (props) => {
     //Use authenticated axios request unless options prevent or there is no authenticated axios object
     //const axiosObject = axiosAuthenticated(token)
     const queryFn = async (props) => {
-        console.log("queryFN props", props)
-        const { pageParam } = props //Current page for infinite queries. Can be null.
+        const { pageParam, token } = props //Current page for infinite queries. Can be null.
         const routeURL = getRouteURL(routeProvider, params, queryStringParams, pageParam)
-        console.log("TOKEN SENT IS", token)
-            return await axios.get(
-                routeURL, {
-                    headers: {
-                        "Authorization" : `Bearer ${token}` 
-                    }
-                }
-                )
+        console.log("Query function will contain token", token)
+            return await axiosObject.get(routeURL)
             .then((response) => {
                 console.log('response from API', response)
                 callbacks.onSuccess && callbacks.onSuccess(response)
@@ -156,7 +146,7 @@ export const useGet = (props) => {
     console.log('useGet with', props)
     const errorController = useErrors()
     const queryParams = getQueryParams({...props, errorController})
-    console.log('queryParams returned to useGet', queryParams)
+    console.log('sending request with params', queryParams)
     return useQuery({...queryParams})
 }
 
