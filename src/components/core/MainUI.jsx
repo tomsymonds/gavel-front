@@ -17,7 +17,6 @@ const MainUI = () => {
     const tokenProvider = useToken()
 
     const mainContent = () => {
-        console.log('main content', tokenProvider.token)
         switch(view.current().name) {
             case "cases":
                 return <CaseList />
@@ -39,10 +38,10 @@ const MainUI = () => {
                         </>
                     )
                 }
-                {!isAuthenticated && !tokenProvider.token && (
+                {!isAuthenticated && !tokenProvider.hasToken && (
                     <>No token</>
                 )}
-                {isAuthenticated && tokenProvider.token && (
+                {isAuthenticated && tokenProvider.hasToken && (
                         <>
                             <LogoutButton/>
                             {user && <p>{user.email}</p>}

@@ -15,14 +15,11 @@ const useToken = () => {
     useEffect(() => {
         const fetchToken = async () => {
             await getAccessTokenSilently().then((response) => {
-                if(response) console.log("GOT TOKEN")
                 const newToken = response
-                console.log('setting token', newToken)
                 setToken(newToken)
                 axios.interceptors.request.use(
                     (config) => {
-                        console.log("adding token to axios request")
-                      // Modify the request configuration or add headers
+                      // Modify the request configuration to add header with auth token
                       config.headers.Authorization = `Bearer ${newToken}`;
                       return config;
                     },
@@ -36,10 +33,6 @@ const useToken = () => {
         if(!token) fetchToken()
         }, [getAccessTokenSilently, setToken, token])
 
-    const current = () => {
-        console.log('token in tokenProvider', token)
-        return token
-    }
     const hasToken = () => token !== null
 
     return {

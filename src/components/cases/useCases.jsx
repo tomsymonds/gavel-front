@@ -9,9 +9,9 @@ const useCases = () => {
         requestType: 'all'
     })
 
-    
-    // console.log("useGet returned", response)
-    return response
+    return {
+        response: response.data.data
+    }
     
 }
 

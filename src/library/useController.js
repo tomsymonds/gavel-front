@@ -5,7 +5,6 @@ import models from '../settings/stateDefinitions'
 //import tokenController from '../helpers/tokenController'
 import objectToURLString from './objectToURLString'
 import axios from 'axios'
-import useToken from './useToken'
 
 
 const api = appSettings.api
@@ -19,13 +18,12 @@ const useController = () => {
     const getQueryClient = useQueryClient
     const getInfiniteQuery = useInfiniteQuery
 
-    const tokenProvider = useToken()
-
     //Get a standard React-Query request
     const get = (props) => {
         const queryParams = getQueryParams({...props, errorController})
-        console.log('sending request with params', queryParams)
-        return getQuery({...queryParams})
+        const response = getQuery({...queryParams})
+        console.log('response from getQuery', response)
+        return response
     }
 
     //Get an infinite React-Query request
@@ -167,17 +165,12 @@ const useController = () => {
             const { pageParam } = props //Current page for infinite queries. Can be null.
             const routeURL = getRouteURL(routeProvider, params, queryStringParams, pageParam)
             return axios.get(
-                routeURL,
-                {
-                    headers: {
-                        Authorization: `Bearer ${tokenProvider.token}`
-                    }
-                }
+                routeURL
             )
             .then((response) => {
                 console.log('response from API', response)
                 callbacks.onSuccess && callbacks.onSuccess(response)
-                return response.data
+                return response
             })
             .catch(error => {
                 // Handle errors
