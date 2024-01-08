@@ -11,7 +11,6 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 
 function App() {  
-  console.log('render App')
   return (
     <QueryClientProvider client = {queryClient}>
       <ChakraProvider>

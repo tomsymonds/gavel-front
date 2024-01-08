@@ -16,9 +16,8 @@ const CaseDetail = () => {
     const caseID = view.current().id
     const caseController = useCase(caseID)
 
-    const response = caseController.response.data
-    if(!response) return "Loading"
-    console.log(response)
+    const response = caseController.response
+    if(!response.isSuccess) return "Loading"  
     const {title} = response.data.attributes
     const defendants = response.data.attributes.defendants.data
     const offence_tags = response.data.attributes.offence_tags.data

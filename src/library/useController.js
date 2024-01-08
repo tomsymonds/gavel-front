@@ -22,8 +22,15 @@ const useController = () => {
     const get = (props) => {
         const queryParams = getQueryParams({...props, errorController})
         const response = getQuery({...queryParams})
-        console.log('response from getQuery', response)
-        return response
+        const formattedResponse = responseFormat(response)
+        return formattedResponse
+    }
+
+    //Returns an object containing selected params from the response object
+    const responseFormat = (response) => {
+        const { fetchStatus, isSuccess} = response
+        const data = response.data ? response.data.data.data : null
+        return {data, fetchStatus, isSuccess}
     }
 
     //Get an infinite React-Query request
@@ -161,6 +168,7 @@ const useController = () => {
         const {routeProvider, queryProvider, idRequired} = getRequest({type, requestType})
         const combinedParams = {...params, ...queryStringParams}
         const queryKey = [queryProvider(combinedParams)]
+        //Set the query function which react-query will call 
         const queryFn = (props) => {
             const { pageParam } = props //Current page for infinite queries. Can be null.
             const routeURL = getRouteURL(routeProvider, params, queryStringParams, pageParam)
@@ -168,13 +176,11 @@ const useController = () => {
                 routeURL
             )
             .then((response) => {
-                console.log('response from API', response)
                 callbacks.onSuccess && callbacks.onSuccess(response)
                 return response
             })
             .catch(error => {
                 // Handle errors
-                console.log('error from API', error)
                 errorController.set({
                     message: error.response.statusText,
                     status: error.response.status

@@ -1,3 +1,4 @@
+
 import useCases from "./useCases"
 import useView from "src/library/useView"
 import Case from "./Case"
@@ -10,12 +11,10 @@ import { PiGavel } from 'react-icons/pi'
 const CaseList = () => {
     
     const caseController = useCases()
-
-    const cases = caseController.response
-    console.log("response to caseList", cases)
-    const viewHistory = useView()
-    console.log('render CaseList')
-    if(!cases) return "Loading"
+    const response = caseController.response
+    const viewHistory = useView()   
+    if(!response.isSuccess) return "Loading"
+    const cases = response.data
 
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
