@@ -44,7 +44,10 @@ const useToken = () => {
     return {
         token,
         clearToken,
-        hasToken
+        hasToken: () => {
+            console.log('has token', hasToken())
+            return hasToken()
+        }
     }
 
 }

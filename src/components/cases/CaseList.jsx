@@ -29,13 +29,16 @@ const CaseList = () => {
 
     return (
             <Container p = {4}>
+                <Box mt = '5px' mb = '30px'>
+                    <Uploader />
+                </Box>
                 <ViewHeading 
                     icon = {PiGavel}
                     text = "Cases"
                     iconSize = "2em"
                     textSize = "3xl"
                 />     
-                <Box mt = '20px'>
+                <Box>
                     <ListBase
                         listItems = {cases}
                         listClickHandler = {handleListClick}
@@ -44,9 +47,6 @@ const CaseList = () => {
                         noItemsText = "No cases."
                         hasClickableItems = {true}
                     />
-                </Box>
-                <Box mt = "20px">
-                    <Uploader />
                 </Box>
             </Container>
     )

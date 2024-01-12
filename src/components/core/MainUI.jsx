@@ -9,14 +9,15 @@ import ItemNavBar from './ItemNavBar'
 import useView from '../../library/useView'
 import { useAuth0 } from "@auth0/auth0-react";
 import useToken from '../../library/useToken'
+import User from '../users/UserSummary'
 
 const MainUI = () => {
 
     const view = useView()
-    const { isAuthenticated, user } = useAuth0()
+    const { isAuthenticated } = useAuth0()
     const tokenProvider = useToken()
 
-    const mainContent = () => {
+    const mainContent = () => { 
         switch(view.current().name) {
             case "cases":
                 return <CaseList />
@@ -38,13 +39,13 @@ const MainUI = () => {
                         </>
                     )
                 }
-                {!isAuthenticated && !tokenProvider.hasToken && (
+                {!isAuthenticated && !tokenProvider.hasToken() && (
                     <>No token</>
                 )}
-                {isAuthenticated && tokenProvider.hasToken && (
+                {isAuthenticated && tokenProvider.hasToken() && (
                         <>
                             <LogoutButton/>
-                            {user && <p>{user.email}</p>}
+                            <User />
                             <ItemNavBar />
                             {mainContent()} 
                         </>
