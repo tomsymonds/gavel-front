@@ -4,7 +4,7 @@ const useCases = () => {
     
     const controller = useController()
 
-    const response = controller.get({
+    const response = controller.infiniteGet({
         type: 'cases',
         requestType: 'all'
     })

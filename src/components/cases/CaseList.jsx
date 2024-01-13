@@ -5,6 +5,7 @@ import Case from "./Case"
 import ListBase from "../core/ListBase"
 import Uploader from "../uploader/Uploader"
 import ViewHeading from "../core/ViewHeading"
+import PageNav from '../core/PageNav'
 import { Container, Icon, Box } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 
@@ -14,8 +15,8 @@ const CaseList = () => {
     const response = caseController.response
     const viewHistory = useView()   
     if(!response.isSuccess) return "Loading"
+    console.log(response)
     const cases = response.data
-
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
     const handleListClick = (selectedCase) => {
@@ -48,6 +49,7 @@ const CaseList = () => {
                         hasClickableItems = {true}
                     />
                 </Box>
+                <PageNav />
             </Container>
     )
 }   
