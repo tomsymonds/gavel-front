@@ -6,13 +6,13 @@ import dateHandler  from '../../library/dateHandler'
 //Generic list component allowing simple or grouped lists
 const ListBase = (props) => {
     //Prop comments see PropTypes
-    const { isDateGroup, listItems, getListItemComponent, listClickHandler, groupClickHandler, noItemsText, hasClickableItems } = props
+    const { isDateGroup, isPageGroup, listItems, getListItemComponent, listClickHandler, groupClickHandler, noItemsText, hasClickableItems } = props
 
     //Return noItemsText for empty list
     if(!listItems || listItems.length === 0) return <Text>{noItemsText}</Text>
 
     //Check for presence of group
-    const isGrouped = isDateGroup || false
+    const isGrouped = isDateGroup || isPageGroup
 
     //Returns either an array of items for ungrouped lists 
     //or for grouped lists an object containing data (the array of items) 
@@ -22,6 +22,10 @@ const ListBase = (props) => {
         if(isDateGroup) return {
             data: dateGroupedListItems(),
             groupComponentProvider: dateGroupComponent
+        }
+        if(isPageGroup) return {
+            data: listItems,
+            groupComponentProvider: pageGroupComponent
         }
         return listItems
     }
@@ -35,6 +39,11 @@ const ListBase = (props) => {
     //Fixed to render in 'friendlyDay' format.
     const dateGroupComponent = (groupKey) => {
         return <Text onClick = {(groupKey) => groupClickHandler(groupKey)}>{dateHandler(groupKey, 'friendlyDays')}</Text>
+    }
+
+    //Returns an invisible component to contain a page group
+    const pageGroupComponent = () => {
+        return <></>
     }
 
     //Returns a list item
@@ -107,6 +116,8 @@ export default ListBase
 ListBase.propTypes = {
     //If true show list with date groups
     isDateGroup: PropTypes.bool,
+    //If true show list with page groups
+    isPageGroup: PropTypes.bool,
     //Array of data items to form the list contents
     listItems: PropTypes.array,
     //ListClickHandler - a function to handle clicks on each item

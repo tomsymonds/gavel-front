@@ -11,12 +11,12 @@ import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
     
-    const caseController = useCases()
-    const response = caseController.response
+    const casesResponse = useCases()
+    const { pages, pageParams, fetchNextPage, isSuccess } = casesResponse
     const viewHistory = useView()   
-    if(!response.isSuccess) return "Loading"
-    console.log(response)
-    const cases = response.data
+    if(!isSuccess) return "Loading"
+    console.log('casesResponse after success', casesResponse)
+
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
     const handleListClick = (selectedCase) => {
@@ -41,7 +41,8 @@ const CaseList = () => {
                 />     
                 <Box>
                     <ListBase
-                        listItems = {cases}
+                        isPageGroup = {true}
+                        listItems = {pages}
                         listClickHandler = {handleListClick}
                         getIcon = {getIcon}
                         getListItemComponent = {getListItemComponent}
@@ -49,7 +50,10 @@ const CaseList = () => {
                         hasClickableItems = {true}
                     />
                 </Box>
-                <PageNav />
+                <PageNav 
+                    pageParams = {pageParams}
+                    fetchNextPage = {fetchNextPage}
+                />
             </Container>
     )
 }   
