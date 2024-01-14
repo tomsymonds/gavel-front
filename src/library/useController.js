@@ -20,11 +20,8 @@ const useController = () => {
 
     //Get a standard React-Query request
     const get = (props) => {
-        console.log('get with props', props)
         const queryParams = getQueryParams({...props, errorController})
-        console.log('query params', queryParams)
         const response = getQuery({...queryParams})
-        console.log('response in useController'. response)
         const formattedResponse = responseFormat(response)
         return formattedResponse
     }
@@ -38,7 +35,6 @@ const useController = () => {
 
     //Get an infinite React-Query request
     const infiniteGet = (props) => {
-        console.log("request via Infinite Get")
         //Get queryParams - merge in getNextPageParam
         const queryParams = getQueryParams({...props, errorController, options: {...props.options, getNextPageParam}})
         const response = getInfiniteQuery(queryParams)  

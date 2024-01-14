@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil'
 
 
-//Controls the sorting, grouping, filtering and pagination of a list
+//Controls logic for sorting, grouping, filtering of a list
 //State for each list is stored in an atom passed to the hook.
 //Generates params to be passed to controllers. 
 const useList = (atom) => {
@@ -29,16 +29,6 @@ const useList = (atom) => {
 
     return {
         current: listState,
-        page: {
-            state: listState.page,
-            set: (pageNumber) => {
-                console.log('set page', pageNumber)
-                set({
-                    settingName: 'page', 
-                    setting: {...listState.page, current: pageNumber}
-                })
-            }
-        },
         set,
         params, 
     }

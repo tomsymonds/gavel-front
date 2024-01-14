@@ -1,6 +1,7 @@
 import useController from '../../library/useController'
-import { casesListState } from '../../settings/atoms'
-import useList from '../../library/useList'
+//To implement useList
+// import { casesListState } from '../../settings/atoms'
+// import useList from '../../library/useList'
 
 //Turn this into a generic controller with comments at some point
 const useCases = () => {
@@ -18,11 +19,9 @@ const useCases = () => {
         queryStringParams: {page: 1}
     })
 
-    console.log('useCases response', response)
-
     //Extract params and data required for this specific type of data from the response
     //Minimum: isSuccess, data
-    const { isSuccess, data, fetchNextPage  } = response
+    const { isSuccess, data, fetchNextPage, hasNextPage  } = response
 
     //If request has yet to return data return only the isSuccess flag to keep components informed
     if(!isSuccess) return {isSuccess}
@@ -37,12 +36,13 @@ const useCases = () => {
 
     //Return params and data. 
     //Minimum: isSuccess, data (for non-paginated data), or pages (for paginated data)
-    //Return pageParams if using infiniteGet to enable page controls. 
+    //Return pageParams, fetchNextPage and hasNextPage if using infiniteGet to enable page controls. 
     return {
         isSuccess,
         pages: pagesData,
         pageParams,
-        fetchNextPage
+        fetchNextPage,
+        hasNextPage
     }
     
 }

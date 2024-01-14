@@ -5,17 +5,16 @@ import Case from "./Case"
 import ListBase from "../core/ListBase"
 import Uploader from "../uploader/Uploader"
 import ViewHeading from "../core/ViewHeading"
-import PageNav from '../core/PageNav'
+import PageMoreButton from '../core/PageMoreButton'
 import { Container, Icon, Box } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
     
     const casesResponse = useCases()
-    const { pages, pageParams, fetchNextPage, isSuccess } = casesResponse
+    const { pages, pageParams, fetchNextPage, hasNextPage, isSuccess } = casesResponse
     const viewHistory = useView()   
     if(!isSuccess) return "Loading"
-    console.log('casesResponse after success', casesResponse)
 
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
@@ -50,10 +49,12 @@ const CaseList = () => {
                         hasClickableItems = {true}
                     />
                 </Box>
-                <PageNav 
-                    pageParams = {pageParams}
-                    fetchNextPage = {fetchNextPage}
-                />
+                {hasNextPage &&
+                    <PageMoreButton
+                        pageParams = {pageParams}
+                        fetchNextPage = {fetchNextPage}
+                    />
+                }
             </Container>
     )
 }   

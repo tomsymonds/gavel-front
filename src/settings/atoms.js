@@ -39,9 +39,6 @@ export const status = atom({
 export const casesListState = atom({
   key: 'listState',
   default: {
-    page: {
-      current: 1
-    },
     filter: {},
     sort: {},
     group: {}
