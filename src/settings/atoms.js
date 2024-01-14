@@ -44,3 +44,14 @@ export const casesListState = atom({
     group: {}
   }
 })
+
+export const appStatus = atom({
+  key: 'appStatus',
+  default: {
+    cases: {
+      isFetching: false,
+      isSuccess: false
+    },
+    system: true
+  }
+})
