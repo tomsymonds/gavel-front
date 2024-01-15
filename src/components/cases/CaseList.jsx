@@ -41,20 +41,23 @@ const CaseList = () => {
                     textSize = "3xl"
                 />     
                 <Box>
-                    <ListBase
-                        isPageGroup = {true}
-                        listItems = {pages}
-                        listClickHandler = {handleListClick}
-                        getIcon = {getIcon}
-                        getListItemComponent = {getListItemComponent}
-                        noItemsText = "No cases."
-                        hasClickableItems = {true}
-                    />
+                    {!isFetchingCases && 
+                        <ListBase
+                            isPageGroup = {true}
+                            listItems = {pages}
+                            listClickHandler = {handleListClick}
+                            getIcon = {getIcon}
+                            getListItemComponent = {getListItemComponent}
+                            noItemsText = "No cases."
+                            isFetching = {isFetchingCases > 0}
+                            hasClickableItems = {true}
+                        />
+                    }
                 </Box>
                     <PageMoreButton
                         fetchNextPage = {fetchNextPage}
                         //Show loading if there are cases being fetched
-                        showLoading = {isFetchingCases > 0}
+                        showSpinner = {isFetchingCases > 0}
                     />
             </Container>
     )
