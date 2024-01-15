@@ -1,6 +1,7 @@
 
 import useCases from "./useCases"
 import useView from "src/library/useView"
+import { useIsFetching } from "@tanstack/react-query"
 import Case from "./Case"
 import ListBase from "../core/ListBase"
 import Uploader from "../uploader/Uploader"
@@ -8,14 +9,14 @@ import ViewHeading from "../core/ViewHeading"
 import PageMoreButton from '../core/PageMoreButton'
 import { Container, Icon, Box } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
-import useAppStatus from "src/library/useAppStatus"
 
 const CaseList = () => {
     
     const casesResponse = useCases()
-    const appStatus = useAppStatus()
-    const { pages, pageParams, fetchNextPage } = casesResponse
+    const { pages, fetchNextPage } = casesResponse
     const viewHistory = useView()   
+    //Get the current fetching status for cases to show loading indicators
+    const isFetchingCases = useIsFetching({ queryKey: [['cases']] })
 
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
@@ -50,14 +51,11 @@ const CaseList = () => {
                         hasClickableItems = {true}
                     />
                 </Box>
-                <PageMoreButton
-                    pageParams = {pageParams}
-                    fetchNextPage = {fetchNextPage}
-                />
-                <Box>
-                    {appStatus.current.cases.isFetching && "fetching"}
-                    {appStatus.current.cases.isSuccess && "success"}
-                </Box>
+                    <PageMoreButton
+                        fetchNextPage = {fetchNextPage}
+                        //Show loading if there are cases being fetched
+                        showLoading = {isFetchingCases > 0}
+                    />
             </Container>
     )
 }   

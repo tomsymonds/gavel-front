@@ -10,14 +10,12 @@ import useView from '../../library/useView'
 import { useAuth0 } from "@auth0/auth0-react";
 import useToken from '../../library/useToken'
 import User from '../users/UserSummary'
-import useAppStatus from 'src/library/useAppStatus'
 
 const MainUI = () => {
 
     const view = useView()
     const { isAuthenticated } = useAuth0()
     const tokenProvider = useToken()
-    const appStatus = useAppStatus()
 
     const mainContent = () => { 
         switch(view.current().name) {
@@ -33,9 +31,6 @@ const MainUI = () => {
     return (
         <Container>
             <NavBanner />
-            <Box mt = '50px'>
-                <p>App Status: {appStatus.current ? "OK" : "NOT OK"}</p>
-            </Box>
             <Box mt = "10px">
                 {!isAuthenticated && (
                         <>

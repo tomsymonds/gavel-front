@@ -10,10 +10,13 @@ const useAppStatus = () => {
     //Pass a setting object and the name of the setting - eg 'filter' or 'sort'
     const set = (props) => {
         console.log(props)
-        const { statusName, status } = props
+        const { category, name, status } = props
         const newStatus = {
             ...appStatus,
-            [statusName]: status
+            [category]: {
+                ...[category],
+                [name]: status
+            }
         }
         setStatus(newStatus)
     }

@@ -52,6 +52,8 @@ export const appStatus = atom({
       isFetching: false,
       isSuccess: false
     },
-    system: true
+    system: {
+      test: null
+    }
   }
 })

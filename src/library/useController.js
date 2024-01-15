@@ -1,4 +1,7 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
+import { useEffect } from  'react'
+import useAppStatus from './useAppStatus'
+import { appStatus } from 'src/settings/atoms'
 import { appSettings } from '../settings/appSettings'
 import useErrors from '../components/errors/useErrors'
 import models from '../settings/stateDefinitions'
@@ -17,6 +20,8 @@ const useController = () => {
     const doMutation = useMutation
     const getQueryClient = useQueryClient
     const getInfiniteQuery = useInfiniteQuery
+    const status = useAppStatus(appStatus)
+    console.log(status)
 
     //Get a standard React-Query request
     const get = (props) => {
@@ -36,8 +41,11 @@ const useController = () => {
     //Get an infinite React-Query request
     const infiniteGet = (props) => {
         //Get queryParams - merge in getNextPageParam
+        console.log("new get request")
         const queryParams = getQueryParams({...props, errorController, options: {...props.options, getNextPageParam}})
+        console.log("sending request")
         const response = getInfiniteQuery(queryParams)  
+        console.log('new response')
         return response
     }
 
