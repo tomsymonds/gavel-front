@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import MainUI from './components/core/MainUI'
+import MainUI from './components/mainUI/MainUI';
 import { ChakraProvider } from '@chakra-ui/react';
 
 
