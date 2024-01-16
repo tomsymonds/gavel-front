@@ -40,7 +40,7 @@ const MainUI = () => {
                     )
                 }
                 {!isAuthenticated && !tokenProvider.hasToken() && (
-                    <>No token</>
+                    <>Please Log In or Sign Up</>
                 )}
                 {isAuthenticated && tokenProvider.hasToken() && (
                         <>
