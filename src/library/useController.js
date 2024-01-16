@@ -208,7 +208,8 @@ const useController = () => {
 
     //Returns the number of the next page. Requires API to explose total_pages with results
     const getNextPageParam = (lastPage, allPages) => {
-        const endPageNumber = lastPage.total_pages
+        //Ensure endPageNumber is set to total_pages within the API response object
+        const endPageNumber = lastPage.data.total_pages
         return allPages.length !== endPageNumber ? allPages.length + 1 : undefined
     }
 

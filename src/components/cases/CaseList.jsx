@@ -7,16 +7,16 @@ import ListBase from "../core/ListBase"
 import Uploader from "../uploader/Uploader"
 import ViewHeading from "../core/ViewHeading"
 import PageMoreButton from '../core/PageMoreButton'
-import { Container, Icon, Box } from '@chakra-ui/react'
+import { Container, Icon, Box, Spinner } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
     
     const casesResponse = useCases()
-    const { pages, fetchNextPage } = casesResponse
+    const { pages, fetchNextPage, hasNextPage } = casesResponse
     const viewHistory = useView()   
     //Get the current fetching status for cases to show loading indicators
-    const isFetchingCases = useIsFetching({ queryKey: [['cases']] })
+    const isFetchingCases = useIsFetching({ queryKey: [['cases']] }) > 0
 
     const getIcon = () => <Icon as = {PiGavel} boxSize = '0.75em'/>
     const getListItemComponent = (caseObj) => <Case id = {caseObj.id} {...caseObj.attributes} />
@@ -39,9 +39,9 @@ const CaseList = () => {
                     text = "Cases"
                     iconSize = "2em"
                     textSize = "3xl"
-                />     
-                <Box>
-                    {!isFetchingCases && 
+                />          
+                {pages &&
+                    <Box>
                         <ListBase
                             isPageGroup = {true}
                             listItems = {pages}
@@ -52,13 +52,18 @@ const CaseList = () => {
                             isFetching = {isFetchingCases > 0}
                             hasClickableItems = {true}
                         />
-                    }
+                    </Box>
+                }
+                <Box p = '20px'>
+                    {isFetchingCases ?
+                        <Spinner />
+                        :
+                        hasNextPage && 
+                            <PageMoreButton
+                                fetchNextPage = {fetchNextPage}
+                            />
+                        }
                 </Box>
-                    <PageMoreButton
-                        fetchNextPage = {fetchNextPage}
-                        //Show loading if there are cases being fetched
-                        showSpinner = {isFetchingCases > 0}
-                    />
             </Container>
     )
 }   
