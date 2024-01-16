@@ -1,24 +1,32 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
 import { appSettings } from '../settings/appSettings'
 import useErrors from '../components/errors/useErrors'
+//Defines the way data will be obtained by the controller.
 import models from '../settings/stateDefinitions'
-//import tokenController from '../helpers/tokenController'
 import objectToURLString from './objectToURLString'
 import axios from 'axios'
 
-
+//Get the base url for the api
 const api = appSettings.api
 const requestsGlobalSettings = appSettings.requests
 
+//A hook for handling server state in the client, using React-Query. 
+//A controller hook provides data logic for a Component 
+//Accesses various React-Query hooks.
+//Creates a queryParam containing queryKey, queryFn and options which is then used to make the React-Query request
+//A controller control
 const useController = () => {
 
     const errorController = useErrors()
+
+    //Instantiate the hooks at top level to avoid breaking the rules of hooks.
     const getQuery = useQuery
     const doMutation = useMutation
     const getQueryClient = useQueryClient
     const getInfiniteQuery = useInfiniteQuery
 
     //Get a standard React-Query request
+    //Returns the current response to the request, which will be pending initially and then update to resolved
     const get = (props) => {
         const queryParams = getQueryParams({...props, errorController})
         const response = getQuery({...queryParams})
@@ -27,15 +35,18 @@ const useController = () => {
     }
 
     //Returns an object containing selected params from the response object
+    //Use this wrapper around response to target the part of the response object containing the data
     const responseFormat = (response) => {
         const { fetchStatus, isSuccess} = response
+        //Get the data using this line
         const data = response.data ? response.data.data.data : null
         return {data, fetchStatus, isSuccess}
     }
 
-    //Get an infinite React-Query request
+    //Get an infinite React-Query request to allow for pagination
     const infiniteGet = (props) => {
-        //Get queryParams - merge in getNextPageParam
+        //Get queryParams - merge in getNextPageParam (defined below) 
+        //This is added as an option and which tells React-Query how to get the next page.
         const queryParams = getQueryParams({...props, errorController, options: {...props.options, getNextPageParam}})
         const response = getInfiniteQuery(queryParams)  
         return response
@@ -78,7 +89,6 @@ const useController = () => {
                 })
             }  
         })
-
         return {
             do: (data) => mutation.mutate(data),
             ...mutation,
@@ -89,7 +99,7 @@ const useController = () => {
     }
 
     /**
-     * Validates requests relating to models
+     * Gets the model from the stateDefinitions file. Validated to ensure the model exists
      * @param {string} the type of item to control. 
      * @returns 
      */
@@ -116,7 +126,7 @@ const useController = () => {
     }
 
     /**
-     * Gets the details of a request from the model and checks for errors
+     * Gets the details of a request from the model definition and validates for errors
      * @param {object} props 
      * @returns 
      */
@@ -138,6 +148,11 @@ const useController = () => {
         return {method, queryProvider, routeProvider, idRequired}
     }
 
+    //Constructs the url which will be used to make the request to the API. 
+    //routeProvider is defined in the model definition
+    //params contain values needed to complete the route - eg record id.
+    //queryStringParams are additional params added after the main route eg search params
+    //pageParam is used for paginated infinite queries.
     const getRouteURL = (routeProvider, params = {}, queryStringParams = {}, pageParam) => {
         const baseRoute = routeProvider(params)
         const queryString = getQueryString(queryStringParams)
@@ -147,20 +162,27 @@ const useController = () => {
         return`${api.domain}${route}`
     }
 
+    //Constructs the query string -- additional params added after the main route url.
     const getQueryString = (queryStringParams) => {
         if(Object.keys(queryStringParams).length === 0) return ""
         return "?" + objectToURLString(queryStringParams)
     }
 
     /**
-     * Gets params for a React-Query request
+     * Construct the React-Query request.
+     * Uses type and request type to get the requestProvider and queryProvider
+     * queryProvider to get the React-Query queryKey
+     * Defines the queryFunction
+     * Defines additional React-Query options (currently hard coded)
+     * Returns an object containing all of these pieces
      * @param {object} props:
-     * type - the record type as per stateDefinitions - eg story
+     * type - the model type as per stateDefinitions - eg story
      * requestType - the basic request to be sent as per stateDefinitions - eg storiesList
      * params - object containing params to be used to construct route in stateDefinitions - eg id
      * queryStringParams - object containing additional params to be passed in the query string
-     * callbacks - object containing callbacks to be sent after request is sent
+     * callbacks - object containing callbacks to be sent after request is sent. Deprecated in React Query v5
      * options - object containing options to configure the ReactQuery request
+     * errorController - handles errors
      * @returns 
      */
     const getQueryParams = (props) => {
@@ -206,7 +228,9 @@ const useController = () => {
         }
     }
 
-    //Returns the number of the next page. Requires API to explose total_pages with results
+    //Returns undefined if the last page is the end page. 
+    //If undefined is returned the React-Query value hasNextPage will be false
+    //Requires API to expose total_pages value when returning results
     const getNextPageParam = (lastPage, allPages) => {
         //Ensure endPageNumber is set to total_pages within the API response object
         const endPageNumber = lastPage.data.total_pages
@@ -218,6 +242,7 @@ const useController = () => {
 
 export default useController
 
+//Checks which props are allowed in the controlled model.
 export const permittedProps = (data, unpermittedProps) => {
     let newData = {...data}
     unpermittedProps.forEach((prop) => {
