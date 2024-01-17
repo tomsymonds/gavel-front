@@ -4,7 +4,6 @@ import { HStack } from '@chakra-ui/react'
 
 const CrimeTagList = (props) => {
     const { tags } = props
-
     return (
         <HStack>
             {

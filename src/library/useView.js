@@ -34,7 +34,6 @@ const useView = () => {
 
     //Replace the entire history with a single view
     const replaceHistoryWith = (view) => {
-        view.scroll = window.scrollY
         const newHistory = [view]
         const newIndex = 0
         setView({

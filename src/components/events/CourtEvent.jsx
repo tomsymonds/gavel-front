@@ -11,11 +11,13 @@ const CourtEvent = (props) => {
         <Box p = {2}>
             <ViewHeading
                 text = {category}
-                textSize = "sm"
+                textSize = "md"
             />
-            <CrimeTagList tags = {offence_tags} />
-            <Text><b>Offence </b>{offence}</Text>
-            <Text fontSize = "sm"><b>Status </b>{offence_level}</Text>
+            <Box mb = '5px'>
+                <CrimeTagList tags = {offence_tags} />
+                <Text fontSize = "sm"><b>Offence </b>{offence}</Text>
+                <Text fontSize = "sm"><b>Status </b>{offence_level}</Text>
+            </Box>
         </Box>   
     )
 

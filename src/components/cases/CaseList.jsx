@@ -36,6 +36,7 @@ const CaseList = () => {
                     text = "Cases"
                     iconSize = "2em"
                     textSize = "3xl"
+                    iconColor = "#63B3ED"
                 />          
                 {pages &&
                     <Box>

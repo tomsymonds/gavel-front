@@ -14,7 +14,8 @@ const NavBanner = (props) => {
   const handleUploadClick = () => {
     viewHistory.replaceHistoryWith({
       name: "uploader", 
-      itemTitle: "Upload Data"
+      itemTitle: "Upload Data",
+      scroll: 0
     })
   }
 
@@ -28,6 +29,7 @@ const NavBanner = (props) => {
               text = "Gavel"
               iconSize = "2em"
               textSize = "4xl"
+              iconColor = "white"
         />
         {loggedIn && 
           <>

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 const ViewHeading = (props) => {
 
-    const { icon, text, iconSize, textSize } = props
+    const { icon, text, iconSize, textSize, iconColor } = props
     return (
         <HStack>
-            { icon && <Icon as = {icon} boxSize = {iconSize} color = "#63B3ED"/>  }     
+            { icon && <Icon as = {icon} boxSize = {iconSize} color = {iconColor || "#63B3ED"}/>  }     
             <Heading fontSize = {textSize}>
                 {text}
             </Heading>
@@ -24,5 +24,7 @@ ViewHeading.propTypes = {
     //Icon size in em
     iconSize: PropTypes.string,
     //Text size in Chakra format
-    textSize: PropTypes.string
+    textSize: PropTypes.string,
+    //Color of icon
+    iconColor: PropTypes.string
 };

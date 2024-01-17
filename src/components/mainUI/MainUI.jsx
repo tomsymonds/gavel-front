@@ -22,7 +22,8 @@ export const MainUI = () => {
     useEffect(() => {
         window.scrollTo(0, view.current().scroll)
     }, [view])
-    
+
+    console.log(view.current())
 
     const mainContent = () => {
         switch (view.current().name) {
@@ -30,7 +31,7 @@ export const MainUI = () => {
                 return <CaseList />;
             case "case":
                 return <CaseDetail />;
-            case "upload":
+            case "uploader":
                 return <Uploader />
             default:
                 return "No view set";

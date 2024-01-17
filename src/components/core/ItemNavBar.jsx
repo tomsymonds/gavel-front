@@ -11,7 +11,7 @@ const ItemNavBar = () => {
     }
     return (
         <div className='fixed-nav-bar'>
-            <Box p = '20px'>
+            <Box p = '15px' ml = '15px'>
                 <Breadcrumb separator = " > ">
                     {views.history.map((view, index) => {
                         return (
