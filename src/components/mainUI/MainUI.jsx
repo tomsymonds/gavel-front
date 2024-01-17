@@ -10,6 +10,7 @@ import useView from '../../library/useView';
 import useToken from '../../library/useToken';
 import './mainUI.css'
 import { useAuth0 } from '@auth0/auth0-react';
+import Uploader from '../uploader/Uploader';
 export const MainUI = () => {
 
     const view = useView();
@@ -22,6 +23,8 @@ export const MainUI = () => {
                 return <CaseList />;
             case "case":
                 return <CaseDetail />;
+            case "uploader":
+                return <Uploader />
             default:
                 return "No view set";
         }
@@ -51,7 +54,7 @@ export const MainUI = () => {
                 }
             </div>
             {isAuthenticated && tokenProvider.hasToken() && (
-                <Box mt="63px" width="60vw" height="100vh" bg = 'white' p = '30px' pl = '75px'
+                <Box mt="63px" width="60vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
                 >
                     <ItemNavBar />
                     {mainContent()}

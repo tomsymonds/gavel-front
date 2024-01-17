@@ -31,6 +31,16 @@ const useView = () => {
         })
     }
 
+    //Replace the entire history with a single view
+    const replaceHistoryWith = (view) => {
+        const newHistory = [view]
+        const newIndex = 0
+        setView({
+            currentIndex: newIndex, 
+            history: newHistory
+        })
+    }
+
     //Move forward in the history with a newView
     //If at the end, newView is added unless it has already been accessed in the current path
     const moveForward = (newView) => {
@@ -108,6 +118,7 @@ const useView = () => {
         moveToIndex,
         addReplaceView,
         backwardsIsPossible,
+        replaceHistoryWith,
         history
     }
 
