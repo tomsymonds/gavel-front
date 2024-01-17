@@ -9,38 +9,45 @@ import axios from 'axios'
 const useToken = () => {
 
     const [token, setToken] = useRecoilState(apiToken)
-    const [isChecking, setIsChecking] = useState(false)
+    const [checked, setChecked] = useState(false)
 
     const clearToken = () => setToken(null)
 
     //Get a valid API token from Auth0
     const { getAccessTokenSilently } = useAuth0()
 
+    const intercepter = (config) => {
+        // Modify the request configuration to add header with auth token
+        config.headers.Authorization = `Bearer ${newToken}`;
+        return config;
+    }
+
     useEffect(() => {
         //Fetch a token
         const fetchToken = async () => {
-            setIsChecking(true)
             await getAccessTokenSilently()
                 .then((response) => {
-                    setIsChecking(false)
+                    setChecked(true)
                     const newToken = response
                     //Store the token in app state
                     setToken(newToken)
                     //Adds the token to outgoing requests sent by Axios
                     axios.interceptors.request.use(
                         (config) => {
-                        // Modify the request configuration to add header with auth token
-                        config.headers.Authorization = `Bearer ${newToken}`;
-                        return config;
+                            // Modify the request configuration to add header with auth token
+                            config.headers.Authorization = `Bearer ${newToken}`;
+                            return config;
                         },
                         (error) => {
-                        // Handle request errors
-                        return Promise.reject(error);
+                            // Handle request errors
+                            return Promise.reject(error);
                         }
                     );
                 })
                 .catch(error => {
-                    setIsChecking(false)
+                    //Remove authorization header to prevent token being sent
+                    axios.defaults.headers.common['Authorization'] = null
+                    setChecked(true)
                     return error
                 });
         }
@@ -52,7 +59,7 @@ const useToken = () => {
     const hasToken = () => token !== null
 
     return {
-        isChecking,
+        checked,
         token,
         clearToken,
         hasToken: () => {

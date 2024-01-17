@@ -1,3 +1,4 @@
+
 import CaseList from '../cases/CaseList';
 import CaseDetail from '../cases/CaseDetail';
 import NavBanner from '../core/NavBanner';
@@ -33,7 +34,7 @@ export const MainUI = () => {
     return (
         <div className = 'main-ui'>
             <NavBanner loggedIn = {isAuthenticated}/>
-            {tokenProvider.isChecking &&
+            {!tokenProvider.checked &&
                     <Flex mt="63px" ml="0px"  width="100vw" height="100vh" pt = "200px"
                         alignContent={"center"} 
                         justifyContent={"center"}
@@ -41,7 +42,7 @@ export const MainUI = () => {
                         <Spinner size = 'xl'/>
                     </Flex>
             }
-            {tokenProvider.hasToken() && 
+            {tokenProvider.checked && 
                 isAuthenticated ? 
                 <Box mt="63px" width="65vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
                 >
