@@ -16,12 +16,6 @@ const useToken = () => {
     //Get a valid API token from Auth0
     const { getAccessTokenSilently } = useAuth0()
 
-    const intercepter = (config) => {
-        // Modify the request configuration to add header with auth token
-        config.headers.Authorization = `Bearer ${newToken}`;
-        return config;
-    }
-
     useEffect(() => {
         //Fetch a token
         const fetchToken = async () => {

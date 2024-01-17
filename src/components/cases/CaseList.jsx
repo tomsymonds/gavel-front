@@ -24,7 +24,8 @@ const CaseList = () => {
             name: "case", 
             modelType: "case",
             id: selectedCase.id,
-            itemTitle: selectedCase.attributes.title
+            itemTitle: selectedCase.attributes.title,
+            scroll: 0
         })
     }
 

@@ -1,5 +1,6 @@
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react'
 import useView from '../../library/useView'
+import './FixedNavBar.css'; // Import your CSS file for styling
 
 const ItemNavBar = () => {
 
@@ -9,26 +10,28 @@ const ItemNavBar = () => {
         views.moveToIndex(newIndex)
     }
     return (
-        <Box mb = '20px'>
-            <Breadcrumb separator = " > ">
-                {views.history().map((view, index) => {
-                    return (
-                        <BreadcrumbItem 
-                            key = {index} 
-                            isCurrentPage = {index === currentIndex}
-                        >
-                            <BreadcrumbLink 
-                                onClick = {() => breadcrumbClickHandler(index)}
+        <div className='fixed-nav-bar'>
+            <Box p = '20px'>
+                <Breadcrumb separator = " > ">
+                    {views.history.map((view, index) => {
+                        return (
+                            <BreadcrumbItem 
+                                key = {index} 
+                                isCurrentPage = {index === currentIndex}
                             >
-                                <Text fontSize = "lg">
-                                    {view.itemTitle}
-                                </Text>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                    )
-                })}
-            </Breadcrumb>
-        </Box>
+                                <BreadcrumbLink 
+                                    onClick = {() => breadcrumbClickHandler(index)}
+                                >
+                                    <Text fontSize = "lg">
+                                        {view.itemTitle}
+                                    </Text>
+                                </BreadcrumbLink>
+                            </BreadcrumbItem>
+                        )
+                    })}
+                </Breadcrumb>
+            </Box>
+        </div>
     )
 
 }

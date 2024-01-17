@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react';
 import CaseList from '../cases/CaseList';
 import CaseDetail from '../cases/CaseDetail';
 import NavBanner from '../core/NavBanner';
@@ -17,6 +17,12 @@ export const MainUI = () => {
     const view = useView();
     const tokenProvider = useToken();
     const { isAuthenticated } = useAuth0()
+
+    //Scroll view to top in case user scrolled down on previous view.
+    useEffect(() => {
+        window.scrollTo(0, view.current().scroll)
+    }, [view])
+    
 
     const mainContent = () => {
         switch (view.current().name) {
@@ -44,7 +50,7 @@ export const MainUI = () => {
             }
             {tokenProvider.checked && 
                 isAuthenticated ? 
-                <Box mt="63px" width="65vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
+                <Box mt="90px" width="65vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
                 >
                     <ItemNavBar />
                     {mainContent()}

@@ -13,7 +13,8 @@ export const viewHistory = atom({
       name: "cases",
       modelType: null,
       id: null,
-      itemTitle: "Cases"
+      itemTitle: "Cases",
+      scroll: 0
     }]
   }
 })

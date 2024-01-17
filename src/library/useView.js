@@ -21,7 +21,8 @@ const useView = () => {
     //currentIndex automatically moves to the new view
     const addReplaceView = (index, newView, isReplace) => {
         //Add new view to history
-        const newHistory = [...view.history]
+
+        const newHistory = [...addCurrentScrollToHistory(view.history)]
         newHistory.splice(index, isReplace ? 1 : 0, newView)
         let newIndex = view.currentIndex
         newIndex = newIndex += 1
@@ -33,6 +34,7 @@ const useView = () => {
 
     //Replace the entire history with a single view
     const replaceHistoryWith = (view) => {
+        view.scroll = window.scrollY
         const newHistory = [view]
         const newIndex = 0
         setView({
@@ -58,10 +60,11 @@ const useView = () => {
         }
     }
 
-    //Moves the currentIndex to newIndex
+    //Moves the currentIndex to newIndex. Saves the current scroll position
     const moveToIndex = (newIndex) => {
+        const newHistory = addCurrentScrollToHistory(view.history)
         setView({
-            ...view,
+            history: newHistory,
             currentIndex: newIndex
         })
     }
@@ -91,9 +94,10 @@ const useView = () => {
         return item1 !== null && item2 !== null && item1.type === item2.type && item1.id === item2.id
     }
 
-    //Sets the currentIndex
+    //Sets the currentIndex to a new position. Saves the current scroll position
     const setPosition = (newIndex) => {
-        setView({...view, currentIndex: newIndex})
+        const newHistory = addCurrentScrollToHistory(view.history)
+        setView({history: newHistory, currentIndex: newIndex})
     }
 
     //Returns the current view
@@ -106,9 +110,11 @@ const useView = () => {
         return view.currentIndex > 0
     }
 
-    //Returns the entire history path
-    const history = () => {
-        return view.history
+    //Maps the history, adding the current window scoll position to the view at currentIndex
+    const addCurrentScrollToHistory = (history) => {
+        return history.map((v, index) => {
+            return index === view.currentIndex ? {...v, scroll: window.scrollY} : v
+        })  
     }
 
     return {
@@ -119,7 +125,7 @@ const useView = () => {
         addReplaceView,
         backwardsIsPossible,
         replaceHistoryWith,
-        history
+        history: view.history
     }
 
 }
