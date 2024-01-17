@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil"
 import { apiToken } from "src/settings/atoms"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios'
 
@@ -9,6 +9,7 @@ import axios from 'axios'
 const useToken = () => {
 
     const [token, setToken] = useRecoilState(apiToken)
+    const [isChecking, setIsChecking] = useState(false)
 
     const clearToken = () => setToken(null)
 
@@ -18,30 +19,40 @@ const useToken = () => {
     useEffect(() => {
         //Fetch a token
         const fetchToken = async () => {
-            await getAccessTokenSilently().then((response) => {
-                const newToken = response
-                //Store the token in app state
-                setToken(newToken)
-                //Adds the token to outgoing requests sent by Axios
-                axios.interceptors.request.use(
-                    (config) => {
-                      // Modify the request configuration to add header with auth token
-                      config.headers.Authorization = `Bearer ${newToken}`;
-                      return config;
-                    },
-                    (error) => {
-                      // Handle request errors
-                      return Promise.reject(error);
-                    }
-                );
-            })
+            setIsChecking(true)
+            await getAccessTokenSilently()
+                .then((response) => {
+                    setIsChecking(false)
+                    const newToken = response
+                    //Store the token in app state
+                    setToken(newToken)
+                    //Adds the token to outgoing requests sent by Axios
+                    axios.interceptors.request.use(
+                        (config) => {
+                        // Modify the request configuration to add header with auth token
+                        config.headers.Authorization = `Bearer ${newToken}`;
+                        return config;
+                        },
+                        (error) => {
+                        // Handle request errors
+                        return Promise.reject(error);
+                        }
+                    );
+                })
+                .catch(error => {
+                    setIsChecking(false)
+                    return error
+                });
         }
-        if(!token) fetchToken()
+        if(!token){
+            fetchToken()
+        }
         }, [getAccessTokenSilently, setToken, token])
 
     const hasToken = () => token !== null
 
     return {
+        isChecking,
         token,
         clearToken,
         hasToken: () => {

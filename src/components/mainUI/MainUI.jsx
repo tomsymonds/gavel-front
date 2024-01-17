@@ -4,7 +4,7 @@ import NavBanner from '../core/NavBanner';
 import LoginButton from '../auth/LoginButton';
 import SignupButton from '../auth/SignupButton';
 import IntroMessage from './IntroMessage';
-import { Box, Flex, VStack, HStack } from '@chakra-ui/react';
+import { Box, Flex, VStack, HStack, Spinner} from '@chakra-ui/react';
 import ItemNavBar from '../core/ItemNavBar';
 import useView from '../../library/useView';
 import useToken from '../../library/useToken';
@@ -23,7 +23,7 @@ export const MainUI = () => {
                 return <CaseList />;
             case "case":
                 return <CaseDetail />;
-            case "uploader":
+            case "upload":
                 return <Uploader />
             default:
                 return "No view set";
@@ -32,27 +32,33 @@ export const MainUI = () => {
 
     return (
         <div className = 'main-ui'>
-            <NavBanner />
-            <div className = 'landing'>
-                {!isAuthenticated && !tokenProvider.hasToken() && 
+            <NavBanner loggedIn = {isAuthenticated}/>
+            {tokenProvider.isChecking &&
                     <Flex mt="63px" ml="0px"  width="100vw" height="100vh" pt = "200px"
                         alignContent={"center"} 
                         justifyContent={"center"}
                     >
-                            <VStack spacing='24px'>
-                                    <IntroMessage 
-                                        text = "Log In or Sign Up"
-                                    />
-                                {!isAuthenticated && (
-                                <HStack spacing='24px'>
-                                    <LoginButton />
-                                    <SignupButton />
-                                </HStack>
-                                )}
-                            </VStack>
+                        <Spinner size = 'xl'/>
                     </Flex>
-                }
-            </div>
+            }
+            {!tokenProvider.hasToken() && !isAuthenticated &&
+                <div className = 'landing'>
+                        <Flex mt="63px" ml="0px"  width="100vw" height="100vh" pt = "200px"
+                            alignContent={"center"} 
+                            justifyContent={"center"}
+                        >
+                                <VStack spacing='24px'>
+                                        <IntroMessage 
+                                            text = "Log In or Sign Up"
+                                        />
+                                    <HStack spacing='24px'>
+                                        <LoginButton />
+                                        <SignupButton />
+                                    </HStack>
+                                </VStack>
+                        </Flex>
+                </div>
+            }
             {isAuthenticated && tokenProvider.hasToken() && (
                 <Box mt="63px" width="60vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
                 >

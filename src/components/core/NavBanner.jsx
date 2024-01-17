@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import './FixedBanner.css'; // Import your CSS file for styling
 import ViewHeading from './ViewHeading';
 import { Flex, Spacer } from '@chakra-ui/react'
@@ -5,7 +6,9 @@ import { PiGavel, PiUploadSimple  } from 'react-icons/pi';
 import UserBadge from '../users/UserBadge';
 import useView from "src/library/useView"
 
-const NavBanner = () => {
+const NavBanner = (props) => {
+
+  const { loggedIn } = props
   const viewHistory = useView()  
 
   const handleUploadClick = () => {
@@ -26,17 +29,26 @@ const NavBanner = () => {
               iconSize = "2em"
               textSize = "4xl"
         />
-        <Spacer />
-        <PiUploadSimple 
-          size = '2em' 
-          onClick = {() => handleUploadClick()} 
-          _hover={{cursor: 'pointer'}}
-        />
-        <Spacer />
-        <UserBadge />
+        {loggedIn && 
+          <>
+          <Spacer />
+          <PiUploadSimple 
+            size = '2em' 
+            onClick = {() => handleUploadClick()} 
+            _hover={{cursor: 'pointer'}}
+          />
+          <Spacer />
+          <UserBadge />
+          </>
+        }
       </Flex>
     </div>
   );
 };
+
+NavBanner.propTypes = {
+  //True if the user is logged in
+  loggedIn: PropTypes.bool
+}
 
 export default NavBanner
