@@ -57,7 +57,7 @@ const ListBase = (props) => {
             >
                 {getListItemComponent(l)}
             </ListItem>
-        )
+        )   
     }
 
     //Returns an ungrouped list

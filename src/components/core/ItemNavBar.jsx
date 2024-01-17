@@ -9,7 +9,7 @@ const ItemNavBar = () => {
         views.moveToIndex(newIndex)
     }
     return (
-        <Box mb = '5px'>
+        <Box mb = '20px'>
             <Breadcrumb separator = " > ">
                 {views.history().map((view, index) => {
                     return (

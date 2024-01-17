@@ -4,10 +4,9 @@ import useView from "src/library/useView"
 import { useIsFetching } from "@tanstack/react-query"
 import Case from "./Case"
 import ListBase from "../core/ListBase"
-import Uploader from "../uploader/Uploader"
 import ViewHeading from "../core/ViewHeading"
 import PageMoreButton from '../core/PageMoreButton'
-import { Container, Icon, Box, Spinner } from '@chakra-ui/react'
+import { Icon, Box, Spinner } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 
 const CaseList = () => {
@@ -30,10 +29,7 @@ const CaseList = () => {
     }
 
     return (
-            <Container p = {4}>
-                <Box mt = '5px' mb = '30px'>
-                    <Uploader />
-                </Box>
+            <Box>
                 <ViewHeading 
                     icon = {PiGavel}
                     text = "Cases"
@@ -64,7 +60,7 @@ const CaseList = () => {
                             />
                         }
                 </Box>
-            </Container>
+            </Box>
     )
 }   
 
