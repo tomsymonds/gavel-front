@@ -41,7 +41,14 @@ export const MainUI = () => {
                         <Spinner size = 'xl'/>
                     </Flex>
             }
-            {!tokenProvider.hasToken() && !isAuthenticated &&
+            {tokenProvider.hasToken() && 
+                isAuthenticated ? 
+                <Box mt="63px" width="65vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
+                >
+                    <ItemNavBar />
+                    {mainContent()}
+                </Box>
+                :
                 <div className = 'landing'>
                         <Flex mt="63px" ml="0px"  width="100vw" height="100vh" pt = "200px"
                             alignContent={"center"} 
@@ -59,13 +66,6 @@ export const MainUI = () => {
                         </Flex>
                 </div>
             }
-            {isAuthenticated && tokenProvider.hasToken() && (
-                <Box mt="63px" width="60vw" height="100vh" bg = 'white' p = '30px' pl = '100px'
-                >
-                    <ItemNavBar />
-                    {mainContent()}
-                </Box>
-            )}
         </div>
     )   
 }
