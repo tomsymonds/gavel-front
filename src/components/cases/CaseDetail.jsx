@@ -68,17 +68,17 @@ const CaseDetail = () => {
                     icon = {RiCalendarEventLine}
                     iconSize = "1.5em"
                 />
-                <Box>
-                    <ListBase
-                        isDateGroup = {true}
-                        listItems = {events}
-                        listClickHandler = {() => {}}
-                        groupClickHandler = {() => {}}
-                        getListItemComponent = {getEventListItemComponent}
-                        noItemsText = "No events"
-                        hasClickableItems = {false}
-                    />
-                </Box>
+            </Box>
+            <Box>
+                <ListBase
+                    isDateGroup = {true}
+                    listItems = {events}
+                    listClickHandler = {() => {}}
+                    groupClickHandler = {() => {}}
+                    getListItemComponent = {getEventListItemComponent}
+                    noItemsText = "No events"
+                    hasClickableItems = {false}
+                />
             </Box>
         </Box>
     )

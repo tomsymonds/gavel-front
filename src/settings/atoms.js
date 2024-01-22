@@ -1,8 +1,21 @@
 import { atom } from 'recoil'
 
-export const errorAtom = atom({
+export const errorState = atom({
   key: 'error',
-  default: null
+  default: {
+    fetch: false,
+    view: null
+  }
+})
+
+export const alertState = atom({
+  key: 'alert',
+  default: {
+    active: false,
+    title: null,
+    description: null,
+    type: null
+  }
 })
 
 export const viewHistory = atom({

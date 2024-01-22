@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
 import { appSettings } from '../settings/appSettings'
-import useErrors from '../components/errors/useErrors'
+import useErrors from '../components/errors/useError'
 //Defines the way data will be obtained by the controller.
 import models from '../settings/stateDefinitions'
 import objectToURLString from './objectToURLString'
@@ -186,7 +186,7 @@ const useController = () => {
      * @returns 
      */
     const getQueryParams = (props) => {
-        const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}, errorController} = props
+        const { type, requestType, params = {}, queryStringParams = {}, callbacks = {}, options = {}} = props
         const {routeProvider, queryProvider, idRequired} = getRequest({type, requestType})
         const combinedParams = {...params, ...queryStringParams}
         const queryKey = [queryProvider(combinedParams)]
@@ -202,12 +202,7 @@ const useController = () => {
                 return response
             })
             .catch(error => {
-                // Handle errors
-                errorController.set({
-                    message: error.response.statusText,
-                    status: error.response.status
-                })
-                return null
+                return Promise.reject(new Error(error))
             });
         };
         return {

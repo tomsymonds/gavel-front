@@ -1,4 +1,4 @@
-import { List, ListItem, Text } from '@chakra-ui/react'
+import { List, ListItem, Text, Box } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 import dateGroup from 'src/library/dateGroup'
 import dateHandler  from '../../library/dateHandler'
@@ -38,7 +38,11 @@ const ListBase = (props) => {
     //Returns component to render a group heading for dates
     //Fixed to render in 'friendlyDay' format.
     const dateGroupComponent = (groupKey) => {
-        return <Text onClick = {(groupKey) => groupClickHandler(groupKey)}>{dateHandler(groupKey, 'friendlyDays')}</Text>
+        return (
+            <Box p = '5px' pl = '10px' backgroundColor = "#63B3ED" color = "white">
+                <Text as = "b" size = "mn" onClick = {(groupKey) => groupClickHandler(groupKey)}>{dateHandler(groupKey, 'friendlyDays')}</Text>
+            </Box>
+        )
     }
 
     //Returns an invisible component to contain a page group
