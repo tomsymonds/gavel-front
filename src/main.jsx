@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               callbackURL = {callbackURL}
               authorizationParams = {{
                 audience: audience,
-                redirect_uri: "http://localhost:5173"
+                redirect_uri: "https://gavel-app.onrender.com/"
               }}
         > 
           <RecoilRoot>
