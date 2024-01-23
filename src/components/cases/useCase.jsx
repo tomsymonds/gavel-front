@@ -1,56 +1,45 @@
 import useController from '../../library/useController'
-
+import useErrors from '../errors/useError'
 
 const useCase = (id) => {
 
     const controller = useController()
+    const errorController = useErrors()
     
     const response = controller.get({
         type: 'cases',
         requestType: 'byID',
         params: { id }
     })
-    
+
+    const { isSuccess, isFetching, data, isError } = response
+
+    //If request has yet to return flags and has not resulted in an error keep components informed
+    if(!isSuccess && !isError) return {
+        isSuccess,  
+        isFetching
+    }
+
+    //Error handling section
+    //If useController has attempted to fetch (default = three times)
+    if(isError){
+        errorController.set({
+            alert: {
+                title: "Sorry there's a problem.",
+                description: "Unable to obtain cases data"
+            },
+            view: "cases",
+            fetch: true //Error was while fetching
+        })
+    }
+
     return {
-        response
+        isSuccess,
+        isFetching,
+        data: data.data //targets data component of response
     }
     
 }
 
 export default useCase
 
-// const { listInactive = false } = props || {}
-//     //Provide atom value for current ids - ids of the currently selected list items
-//     const currentIDs = useRecoilValue(currentStoryIDsAtom)
-//     const currentID = currentIDs[0]?.id
-//     const { 
-//         filterController, 
-//         orderController, 
-//         getListParams 
-//     } = useListArrangement({type: 'stories', filterField: 'title'})
-//     const errorController = useErrors()
-
-//     //Get list data - includes filter
-//     const request = {
-//         type: 'stories',
-//         requestType: 'storiesListWithParams'
-//     }
-//     const listRequest = getListParams(request)
-//     const response = useInfiniteGet({...listRequest, errorController})  
-//     const { isFetching } = response
-//     //Add the updated fetchNextPage function from useInfiniteGet to pageController
-//     const {fetchNextPage, hasNextPage, hasPreviousPage} = response
-//     const pageController = {fetchNextPage, hasNextPage, hasPreviousPage}
-//     const storyPages = response.data ? response.data.pages : []
-//     /**
-//      * Returns a story for an id from within paginated stories
-//      * @param {integer} id 
-//      * @returns story object
-//      */
-//     const getStory = (id) => {
-//         let matchingStory
-//         storyPages.forEach((page) => {
-//             matchingStory = page.data.find(story => story.id === id)
-//         })
-//         return matchingStory
-//     }

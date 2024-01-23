@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 
 function App() {  
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -13,6 +14,7 @@ function App() {
       },
     }
   }) 
+
   return (
     <QueryClientProvider client = {queryClient}>
       <ChakraProvider>

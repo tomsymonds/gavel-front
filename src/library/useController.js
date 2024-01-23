@@ -39,7 +39,7 @@ const useController = () => {
     const responseFormat = (response) => {
         const { fetchStatus, isSuccess} = response
         //Get the data using this line
-        const data = response.data ? response.data.data.data : null
+        const data = response.data ? response.data.data : null
         return {data, fetchStatus, isSuccess}
     }
 

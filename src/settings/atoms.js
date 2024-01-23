@@ -67,7 +67,8 @@ export const appStatus = atom({
       isSuccess: false
     },
     system: {
-      test: null
+      test: null,
+      network: null
     }
   }
 })

@@ -47,7 +47,7 @@ export const MainUI = () => {
     }, [alert, toast])
 
     const mainContent = () => {
-        //Fetch errors will stop app rendering
+        //Offline or Fetch errors will stop app rendering
         if(errors.fetch) return false
 
         //Show the view

@@ -3,7 +3,7 @@ import ListBase from '../core/ListBase'
 import Defendant from '../defendants/defendant'
 import CrimeTagList from "../events/CrimeTagList"
 import CourtEvent from "../events/CourtEvent"
-import { Box } from '@chakra-ui/react'
+import { Box, Spinner } from '@chakra-ui/react'
 import { PiGavel } from 'react-icons/pi'
 import { IoPersonOutline } from "react-icons/io5"
 import { RiCalendarEventLine } from "react-icons/ri";
@@ -16,13 +16,16 @@ const CaseDetail = () => {
     const caseID = view.current().id
     const caseController = useCase(caseID)
 
-    const response = caseController.response
-    if(!response.isSuccess) return "Loading"  
-    const {title} = response.data.attributes
-    const defendants = response.data.attributes.defendants.data
-    const offence_tags = response.data.attributes.offence_tags.data
-    const events = response.data.attributes.date_sorted_events.data
-
+    const response = caseController
+    const { data, isSuccess } = response
+    if(!isSuccess) {
+        return <Box><Spinner /></Box>
+    }
+    const {title} = data.attributes
+    const defendants = data.attributes.defendants.data
+    const offence_tags = data.attributes.offence_tags.data
+    const events = data.attributes.date_sorted_events.data
+    
     const getDefendantListItemComponent = (props) => {
         return <Defendant {...props} />
     }
@@ -80,6 +83,7 @@ const CaseDetail = () => {
                     hasClickableItems = {false}
                 />
             </Box>
+
         </Box>
     )
 
