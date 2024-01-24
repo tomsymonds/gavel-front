@@ -11,7 +11,6 @@ const emptyAlert = {
 const useAlert = () => {
     const [alert, setAlert] = useRecoilState(alertState)
     const set = (props) => {
-        console.log('setAlert to', props)
         setAlert({
             ...props,
             active: true

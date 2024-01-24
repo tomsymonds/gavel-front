@@ -19,10 +19,11 @@ export const MainUI = () => {
 
     const view = useView();
     const tokenProvider = useToken();   
+    const { isAuthenticated } = useAuth0()
     const toast = useToast()
     const alert = useAlert()
     const errors = useError()
-    const { isAuthenticated } = useAuth0()
+
 
     //Scroll view to top in case user scrolled down on previous view.
     useEffect(() => {
